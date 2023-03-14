@@ -1,5 +1,6 @@
 <template>
   <HomePageHeader/>
+  <router-view/>
 </template>
 
 <script setup>

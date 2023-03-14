@@ -2,7 +2,20 @@ import {createApp} from 'vue'
 import App from './App.vue'
 import router from '@/router/index'
 
-import {NavBar, Button, Image as VanImage, Search, Icon, Popup, Collapse, CollapseItem, Cell} from 'vant';
+import {
+    NavBar,
+    Button,
+    Image as VanImage,
+    Search,
+    Icon,
+    Popup,
+    Collapse,
+    CollapseItem,
+    Cell,
+    Form,
+    Field,
+    CellGroup
+} from 'vant';
 import 'vant/lib/index.css';
 
 import '@/assets/css/global.css'
@@ -19,4 +32,7 @@ app.use(Popup)
 app.use(Collapse)
 app.use(CollapseItem)
 app.use(Cell)
+app.use(Form)
+app.use(Field)
+app.use(CellGroup)
 
