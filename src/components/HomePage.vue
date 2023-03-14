@@ -2,13 +2,9 @@
   <HomePageHeader/>
 </template>
 
-<script>
+<script setup>
 import HomePageHeader from "@/components/HomePageHeader";
 
-export default {
-  name: "HomePage",
-  components: {HomePageHeader}
-}
 </script>
 
 <style scoped>

@@ -7,7 +7,7 @@
     <van-popup
         v-model:show="show"
         position="right"
-        :style="{ width: '70%', height: '100%' }">
+        :style="{ width: '60%', height: '100%' }">
       <van-cell title="首页" is-link/>
       <van-collapse v-model="activeNames">
         <van-collapse-item title="文章" name="1">
@@ -21,30 +21,19 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import {ref} from "vue";
 
-export default {
-  name: "HomePageHeader",
-  setup() {
-    //右上角菜单按钮
-    const show = ref(false);
-    const showPopup = () => {
-      show.value = true;
-    };
-    //搜索栏
-    const value = ref('');
-    //弹出层
-    const activeNames = ref(['1']);
+//右上角菜单按钮
+const show = ref(false);
+const showPopup = () => {
+  show.value = true;
+};
+//搜索栏
+const value = ref('');
+//弹出层
+const activeNames = ref(['1']);
 
-    return {
-      show,
-      showPopup,
-      activeNames,
-      value
-    };
-  },
-}
 </script>
 
 <style scoped>
