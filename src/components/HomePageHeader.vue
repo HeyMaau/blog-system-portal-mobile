@@ -3,7 +3,7 @@
     <van-image height="30" width="30" src="/favicon.ico" class="logo"/>
     <van-search v-model="value" placeholder="请输入搜索关键词" class="search-bar"/>
     <van-image height="30" width="30" src="/favicon.ico" class="avatar" round v-show="showAvatar"/>
-    <span v-show="!showAvatar" class="title van-ellipsis">想法想法想法想法想法想法想法想法想法想法想法想法想法</span>
+    <span v-show="!showAvatar" class="title van-ellipsis">{{ title }}</span>
     <van-icon name="bars" size="25" class="menu-icon" @click="showPopup"/>
     <van-popup
         v-model:show="show"
@@ -23,8 +23,14 @@
 </template>
 
 <script setup>
-import {ref} from "vue";
-import {useRoute, onBeforeRouteUpdate} from 'vue-router'
+import {ref, defineProps} from "vue";
+import {onBeforeRouteUpdate} from 'vue-router'
+
+//接收props
+defineProps({
+  showAvatar: Boolean,
+  title: String
+})
 
 //右上角菜单按钮
 const show = ref(false);
@@ -35,19 +41,10 @@ const showPopup = () => {
 const value = ref('');
 //弹出层
 const activeNames = ref(['1']);
-//控制头像的显示与隐藏
-const showAvatar = ref(true)
-const route = useRoute()
-isShowAvatar(route.path)
-onBeforeRouteUpdate((to) => {
-  isShowAvatar(to.path)
+//路由变化时关闭弹窗及更新标题
+onBeforeRouteUpdate(() => {
   show.value = false
 })
-
-function isShowAvatar(path) {
-  showAvatar.value = path === '/';
-}
-
 
 </script>
 
@@ -94,6 +91,7 @@ function isShowAvatar(path) {
   font-size: 30px;
   width: 230px;
   font-weight: bold;
+  text-align: center;
 }
 
 </style>
