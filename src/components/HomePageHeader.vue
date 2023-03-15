@@ -12,7 +12,8 @@
       <van-cell title="首页" is-link to="/"/>
       <van-collapse v-model="activeNames">
         <van-collapse-item title="文章" name="1">
-          <van-cell v-for="item in categoryList" :key="item.id" :title="item.name" is-link/>
+          <van-cell v-for="item in categoryList" :key="item.id" :title="item.name" :to="`/category/${item.id}`"
+                    is-link/>
         </van-collapse-item>
       </van-collapse>
       <van-cell title="想法" is-link to="/thinking"/>

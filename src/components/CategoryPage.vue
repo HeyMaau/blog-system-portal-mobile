@@ -1,0 +1,11 @@
+<template>
+  <div>分类页面</div>
+</template>
+
+<script setup>
+
+</script>
+
+<style scoped>
+
+</style>
