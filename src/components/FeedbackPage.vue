@@ -50,6 +50,10 @@
 
 <script setup>
 import {reactive} from "vue";
+import {useSendFeedback} from "@/hooks/feedback";
+import {CODE_SUCCESS} from "@/utils/constants";
+import {showSuccessToast, showFailToast} from 'vant';
+import {useRouter} from 'vue-router'
 
 const feedback = reactive({
   title: '',
@@ -57,8 +61,21 @@ const feedback = reactive({
   email: ''
 })
 
-function onSubmit() {
+const router = useRouter()
 
+async function onSubmit() {
+  const {data: response} = await useSendFeedback(feedback)
+  if (response.code === CODE_SUCCESS) {
+    showSuccessToast({
+      duration: 3000,
+      message: '提交成功\n3秒后跳转'
+    })
+    setTimeout(() => {
+      router.push('/')
+    }, 3000)
+  } else {
+    showFailToast('提交失败，请稍后重试')
+  }
 }
 
 </script>
@@ -69,7 +86,8 @@ function onSubmit() {
   display: flex;
   justify-content: center;
   width: 100%;
-  margin: 20px 0;
+  margin-top: 100px;
+  margin-bottom: 20px;
 }
 
 </style>
