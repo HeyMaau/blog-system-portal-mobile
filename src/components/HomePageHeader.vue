@@ -77,8 +77,9 @@ onBeforeRouteUpdate(() => {
   position: relative;
   display: flex;
   align-items: center;
-  height: 100px;
+  height: 105px;
   background: white;
+  border-bottom: 1px solid hsla(0,0%,7%,.06);
 }
 
 :deep(.van-dropdown-menu__bar) {

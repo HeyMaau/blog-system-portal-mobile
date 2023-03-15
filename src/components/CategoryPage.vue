@@ -1,8 +1,9 @@
 <template>
-  <div>分类页面</div>
+  <ArticleList/>
 </template>
 
 <script setup>
+import ArticleList from "@/components/ArticleList";
 
 </script>
 
