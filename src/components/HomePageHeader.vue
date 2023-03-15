@@ -12,8 +12,7 @@
       <van-cell title="首页" is-link to="/"/>
       <van-collapse v-model="activeNames">
         <van-collapse-item title="文章" name="1">
-          <van-cell title="Android" is-link/>
-          <van-cell title="Web" is-link/>
+          <van-cell v-for="item in categoryList" :key="item.id" :title="item.name" is-link/>
         </van-collapse-item>
       </van-collapse>
       <van-cell title="想法" is-link to="/thinking"/>
@@ -23,15 +22,23 @@
 </template>
 
 <script setup>
-import {ref, defineProps} from "vue";
+import {ref, defineProps, reactive} from "vue";
 import {onBeforeRouteUpdate} from 'vue-router'
+import {getCategories} from "@/hooks/article";
+import {CODE_SUCCESS} from "@/utils/constants";
 
 //接收props
 defineProps({
   showAvatar: Boolean,
   title: String
 })
-
+//获取文章分类信息
+let categoryList = reactive([])
+getCategories().then(({data: response}) => {
+  if (response.code === CODE_SUCCESS) {
+    categoryList = reactive(response.data)
+  }
+})
 //右上角菜单按钮
 const show = ref(false);
 const showPopup = () => {

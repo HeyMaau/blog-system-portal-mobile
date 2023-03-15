@@ -6,6 +6,6 @@ const request = axios.create({
     timeout: 1000
 })
 
-export function useSendFeedback(feedback) {
-    return request.post('/feedback', feedback)
+export function getCategories() {
+    return request.get('/website_info/categories')
 }
