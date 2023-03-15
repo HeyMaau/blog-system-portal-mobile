@@ -9,3 +9,13 @@ const request = axios.create({
 export function getCategories() {
     return request.get('/website_info/categories')
 }
+
+export function getArticles(page, size, categoryID) {
+    return request.get('/article/list', {
+        params: {
+            page,
+            size,
+            categoryID
+        }
+    })
+}
