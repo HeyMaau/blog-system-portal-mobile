@@ -6,11 +6,11 @@ const request = axios.create({
     timeout: 1000
 })
 
-export function getCategories() {
+export function getCategoriesApi() {
     return request.get('/website_info/categories')
 }
 
-export function getArticles(page, size, categoryID) {
+export function getArticlesApi(page, size, categoryID) {
     return request.get('/article/list', {
         params: {
             page,
