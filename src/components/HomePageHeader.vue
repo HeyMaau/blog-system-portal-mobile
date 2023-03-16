@@ -23,9 +23,9 @@
 </template>
 
 <script setup>
-import {ref, defineProps, reactive} from "vue";
+import {ref, defineProps, shallowRef} from "vue";
 import {onBeforeRouteUpdate} from 'vue-router'
-import {getCategories} from "@/hooks/article";
+import {getCategoriesApi} from "@/hooks/article";
 import {CODE_SUCCESS} from "@/utils/constants";
 
 //接收props
@@ -34,10 +34,10 @@ defineProps({
   title: String
 })
 //获取文章分类信息
-let categoryList = reactive([])
-getCategories().then(({data: response}) => {
+let categoryList = shallowRef([])
+getCategoriesApi().then(({data: response}) => {
   if (response.code === CODE_SUCCESS) {
-    categoryList = reactive(response.data)
+    categoryList.value = response.data
   }
 })
 //右上角菜单按钮
@@ -79,7 +79,7 @@ onBeforeRouteUpdate(() => {
   align-items: center;
   height: 105px;
   background: white;
-  border-bottom: 1px solid hsla(0,0%,7%,.06);
+  border-bottom: 1px solid hsla(0, 0%, 7%, .06);
 }
 
 :deep(.van-dropdown-menu__bar) {
