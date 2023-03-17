@@ -40,3 +40,11 @@ function trimArticleSummary(list) {
         })
     }
 }
+
+export function initCollapseState(list, state) {
+    list.forEach(item => {
+        if (state[item.id] === undefined) {
+            state[item.id] = true
+        }
+    })
+}

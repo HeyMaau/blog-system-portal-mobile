@@ -13,6 +13,7 @@ const route = useRoute()
 let page = 1;
 let size = 10;
 const articleList = shallowReactive([])
+
 useGetArticles(page, size, route.params.id, articleList)
 
 onBeforeRouteUpdate((to) => {

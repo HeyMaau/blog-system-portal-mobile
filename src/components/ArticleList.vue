@@ -16,12 +16,22 @@
 </template>
 
 <script setup>
-import {defineProps} from "vue";
+import {defineProps, shallowReactive, watch} from "vue";
 import {API_PORTAL_IMAGE_PATH} from "@/utils/constants";
+import {initCollapseState} from "@/hooks/article";
 
-defineProps({
+const props = defineProps({
   articleList: Array
 })
+
+//监听数组的变化，创建文章折叠状态管理器
+let collapseState = shallowReactive({})
+console.log(props)
+watch(() => props.articleList, () => {
+  //清空状态管理器
+  collapseState = shallowReactive({})
+  initCollapseState(props.articleList, collapseState)
+}, {deep: true})
 
 </script>
 
