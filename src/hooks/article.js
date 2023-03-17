@@ -1,6 +1,5 @@
 import axios from "axios";
 import {API_PORTAL_PATH, ARTICLE_SUMMARY_LENGTH, CODE_SUCCESS} from "@/utils/constants";
-import {shallowRef} from "vue";
 
 const request = axios.create({
     baseURL: API_PORTAL_PATH,
@@ -21,16 +20,15 @@ export function getArticlesApi(page, size, categoryID) {
     })
 }
 
-export function useGetArticles(page, size, categoryID) {
-    const list = shallowRef([])
+export function useGetArticles(page, size, categoryID, list) {
     getArticlesApi(page, size, categoryID).then(({data: response}) => {
         if (response.code === CODE_SUCCESS) {
-            const articleList = response.data.data
-            trimArticleSummary(articleList)
-            list.value = articleList
+            response.data.data.forEach(item => {
+                list.push(item)
+            })
+            trimArticleSummary(list)
         }
     })
-    return list
 }
 
 function trimArticleSummary(list) {
