@@ -10,7 +10,7 @@ export function getCategoriesApi() {
     return request.get('/website_info/categories')
 }
 
-export function getArticlesApi(page, size, categoryID) {
+function getArticlesApi(page, size, categoryID) {
     return request.get('/article/list', {
         params: {
             page,
@@ -18,6 +18,10 @@ export function getArticlesApi(page, size, categoryID) {
             categoryID
         }
     })
+}
+
+export function getFullArticleApi(articleID) {
+    return request.get('/article/' + articleID)
 }
 
 export function useGetArticles(page, size, categoryID, list) {
