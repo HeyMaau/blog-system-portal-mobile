@@ -27,6 +27,7 @@ import {ref, defineProps, shallowRef} from "vue";
 import {onBeforeRouteUpdate} from 'vue-router'
 import {getCategoriesApi} from "@/hooks/article";
 import {CODE_SUCCESS} from "@/utils/constants";
+import {provideCategoryList} from "@/utils/store";
 
 //接收props
 defineProps({
@@ -38,6 +39,7 @@ let categoryList = shallowRef([])
 getCategoriesApi().then(({data: response}) => {
   if (response.code === CODE_SUCCESS) {
     categoryList.value = response.data
+    provideCategoryList.value = response.data
   }
 })
 //右上角菜单按钮

@@ -1,14 +1,21 @@
+import {provideCategoryList} from "@/utils/store";
+
 export function useGetTitle(path) {
     let title
-    switch (path) {
-        case '/thinking':
-            title = '想法'
-            break
-        case '/feedback':
-            title = '联系我'
-            break
-        default:
-            title = '首页'
+    if (path.startsWith('/thinking')) {
+        title = '想法'
+    } else if (path.startsWith('/feedback')) {
+        title = '联系我'
+    } else if (path.startsWith('/category')) {
+        let index = path.lastIndexOf('/');
+        let categoryID = path.slice(index + 1);
+        const categoryList = provideCategoryList.value;
+        for (let i = 0; i < categoryList.length; i++) {
+            if (categoryList[i].id === categoryID) {
+                title = categoryList[i].name
+                break
+            }
+        }
     }
     return title
 }
