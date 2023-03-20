@@ -1,28 +1,27 @@
 <template>
-  <HomePageHeader :showAvatar="showAvatar" :title="title"/>
-  <router-view/>
+  <ArticleList :articleList="articleList"/>
 </template>
 
 <script setup>
-import HomePageHeader from "@/components/HomePageHeader";
-import {ref} from "vue";
-import {onBeforeRouteUpdate, useRoute} from "vue-router/dist/vue-router";
-import {useGetTitle} from "@/hooks/getTitle";
+import ArticleList from "@/components/ArticleList";
+import {useGetArticles, useInfiniteScroll} from "@/hooks/article";
+import {shallowReactive} from "vue";
+import {INFINITE_SCROLL_THRESHOLD} from "@/utils/constants";
 
-//控制头像的显示与隐藏及更新头部标题
-const showAvatar = ref(true)
-const route = useRoute()
-isShowAvatar(route.path)
-const title = ref(useGetTitle(route.path))
-onBeforeRouteUpdate((to) => {
-  isShowAvatar(to.path)
-  title.value = useGetTitle(to.path)
+//获取文章数据
+let page = 1;
+let size = 5;
+const articleList = shallowReactive([])
+let noMore
+
+noMore = useGetArticles(page, size, null, articleList)
+
+//无限滚动
+useInfiniteScroll(INFINITE_SCROLL_THRESHOLD, () => {
+  if (!noMore.value) {
+    noMore = useGetArticles(++page, size, null, articleList)
+  }
 })
-
-function isShowAvatar(path) {
-  showAvatar.value = path === '/';
-}
-
 
 </script>
 
