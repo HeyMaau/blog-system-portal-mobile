@@ -16,7 +16,8 @@ import {
     Field,
     CellGroup,
     Toast,
-    BackTop
+    BackTop,
+    Sticky
 } from 'vant';
 import 'vant/lib/index.css';
 
@@ -39,4 +40,5 @@ app.use(Field)
 app.use(CellGroup)
 app.use(Toast)
 app.use(BackTop)
+app.use(Sticky)
 

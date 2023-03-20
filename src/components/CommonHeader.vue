@@ -9,7 +9,7 @@
         v-model:show="show"
         position="right"
         :style="{ width: '60%', height: '100%' }">
-      <van-cell title="首页" is-link to="/"/>
+      <van-cell title="首页" is-link to="/" @click="closePopup"/>
       <van-collapse v-model="activeNames">
         <van-collapse-item title="文章" name="1">
           <van-cell v-for="item in categoryList" :key="item.id" :title="item.name" :to="`/category/${item.id}`"
@@ -55,6 +55,11 @@ const activeNames = ref(['1']);
 onBeforeRouteUpdate(() => {
   show.value = false
 })
+
+//关闭弹出层
+function closePopup() {
+  show.value = false
+}
 
 </script>
 

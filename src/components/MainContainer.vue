@@ -1,5 +1,7 @@
 <template>
-  <CommonHeader :showAvatar="showAvatar" :title="title"/>
+  <van-sticky>
+    <CommonHeader :showAvatar="showAvatar" :title="title"/>
+  </van-sticky>
   <router-view/>
   <van-back-top/>
 </template>
