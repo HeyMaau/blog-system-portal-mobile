@@ -15,7 +15,8 @@ import {
     Form,
     Field,
     CellGroup,
-    Toast
+    Toast,
+    BackTop
 } from 'vant';
 import 'vant/lib/index.css';
 
@@ -37,4 +38,5 @@ app.use(Form)
 app.use(Field)
 app.use(CellGroup)
 app.use(Toast)
+app.use(BackTop)
 

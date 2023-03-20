@@ -1,6 +1,7 @@
 <template>
   <CommonHeader :showAvatar="showAvatar" :title="title"/>
   <router-view/>
+  <van-back-top/>
 </template>
 
 <script setup>
