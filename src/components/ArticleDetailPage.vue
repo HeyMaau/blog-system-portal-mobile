@@ -1,11 +1,93 @@
 <template>
-  <div>文章详情页</div>
+  <van-image width="100%" height="100%" fit="cover" :src="coverUrl"/>
+  <div class="article-content-container">
+    <div class="article-title">{{ article.title }}</div>
+    <div class="article-update-time">编辑于 {{ updateTime }}</div>
+    <AuthorInfoBanner :avatarSrc="article.user.avatar" :name="article.user.userName"
+                      :signature="article.user.sign" class="author-info-banner"/>
+    <div class="article-content" v-html="article.content"></div>
+  </div>
 </template>
 
 <script setup>
+import {getFullArticleApi} from "@/hooks/article";
+import {useRoute} from "vue-router";
+import {shallowRef, computed} from "vue";
+import {API_PORTAL_IMAGE_PATH} from "@/utils/constants";
+import AuthorInfoBanner from "@/components/AuthorInfoBanner";
+
+//获取文章数据
+const route = useRoute()
+const coverUrl = shallowRef('')
+const article = shallowRef({})
+getFullArticleApi(route.params.id).then(({data: response}) => {
+  coverUrl.value = `${API_PORTAL_IMAGE_PATH}/${response.data.cover}`
+  article.value = response.data
+})
+const updateTime = computed(() => {
+  let index = article.value.updateTime.lastIndexOf(':');
+  return article.value.updateTime.slice(0, index)
+})
 
 </script>
 
 <style scoped>
+
+.article-content-container {
+  padding: 0 32px 32px;
+}
+
+.article-title {
+  color: #121212;
+  font-size: 45px;
+  font-weight: 700;
+  margin: 32px 0;
+}
+
+.article-update-time {
+  color: #8590a6;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.author-info-banner {
+  margin-top: 40px;
+  padding: 32px 0 16px;
+  border-top-width: 1px;
+  border-top-style: solid;
+  border-top-color: rgba(211, 211, 211, 0.5);
+}
+
+.article-content {
+  color: #121212;
+  font-size: 30px;
+  line-height: 1.6;
+  margin-top: 30px;
+}
+
+:deep(.article-content img) {
+  max-width: 100%;
+}
+
+:deep(.article-content h1) {
+  font-size: 1.3em;
+  line-height: 1.5;
+  font-weight: 700;
+  margin: 20px 0;
+}
+
+:deep(.article-content h2) {
+  font-size: 1.2em;
+  line-height: 1.5;
+  font-weight: 700;
+  margin: 20px 0;
+}
+
+:deep(.article-content h3) {
+  font-size: 1.1em;
+  line-height: 1.5;
+  font-weight: 700;
+  margin: 20px 0;
+}
 
 </style>
