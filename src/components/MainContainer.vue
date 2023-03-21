@@ -1,6 +1,6 @@
 <template>
   <van-sticky>
-    <CommonHeader :showAvatar="showAvatar" :title="title"/>
+    <CommonHeader :showAvatar="showAvatar" :title="provideHeaderTitle"/>
   </van-sticky>
   <router-view/>
   <van-back-top/>
@@ -10,16 +10,14 @@
 import CommonHeader from "@/components/CommonHeader";
 import {ref} from "vue";
 import {onBeforeRouteUpdate, useRoute} from "vue-router/dist/vue-router";
-import {useGetTitle} from "@/hooks/getTitle";
+import {provideHeaderTitle} from "@/utils/store";
 
-//控制头像的显示与隐藏及更新头部标题
+//控制头像的显示
 const showAvatar = ref(true)
 const route = useRoute()
 isShowAvatar(route.path)
-const title = ref(useGetTitle(route.path))
 onBeforeRouteUpdate((to) => {
   isShowAvatar(to.path)
-  title.value = useGetTitle(to.path)
 })
 
 function isShowAvatar(path) {

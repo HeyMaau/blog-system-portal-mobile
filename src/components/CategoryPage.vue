@@ -8,6 +8,7 @@ import {useGetArticles, useInfiniteScroll} from "@/hooks/article";
 import {useRoute, onBeforeRouteUpdate} from 'vue-router'
 import {shallowReactive} from "vue";
 import {INFINITE_SCROLL_THRESHOLD} from "@/utils/constants";
+import {setCategoryName} from "@/hooks/header";
 
 //获取文章数据
 const route = useRoute()
@@ -18,10 +19,14 @@ let noMore
 
 noMore = useGetArticles(page, size, route.params.id, articleList)
 
+//获取分类名称并设置
+setCategoryName(route.params.id);
+
 onBeforeRouteUpdate((to) => {
   //先清空数组
   articleList.length = 0
   useGetArticles(page, size, to.params.id, articleList)
+  setCategoryName(to.params.id)
 })
 
 //无限滚动

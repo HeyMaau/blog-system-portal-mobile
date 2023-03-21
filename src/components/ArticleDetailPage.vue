@@ -3,8 +3,8 @@
   <div class="article-content-container">
     <div class="article-title">{{ article.title }}</div>
     <div class="article-update-time">编辑于 {{ updateTime }}</div>
-    <AuthorInfoBanner :avatarSrc="article.user.avatar" :name="article.user.userName"
-                      :signature="article.user.sign" class="author-info-banner"/>
+    <AuthorInfoBanner :avatarSrc="avatarUrl" :name="authorName"
+                      :signature="authorSign" class="author-info-banner"/>
     <div class="article-content" v-html="article.content"></div>
   </div>
 </template>
@@ -15,18 +15,29 @@ import {useRoute} from "vue-router";
 import {shallowRef, computed} from "vue";
 import {API_PORTAL_IMAGE_PATH} from "@/utils/constants";
 import AuthorInfoBanner from "@/components/AuthorInfoBanner";
+import {provideHeaderTitle} from "@/utils/store";
 
 //获取文章数据
 const route = useRoute()
 const coverUrl = shallowRef('')
 const article = shallowRef({})
+const avatarUrl = shallowRef('')
+const authorName = shallowRef('')
+const authorSign = shallowRef('')
 getFullArticleApi(route.params.id).then(({data: response}) => {
   coverUrl.value = `${API_PORTAL_IMAGE_PATH}/${response.data.cover}`
   article.value = response.data
+  provideHeaderTitle.value = response.data.title
+  avatarUrl.value = response.data.user.avatar
+  authorName.value = response.data.user.userName
+  authorSign.value = response.data.user.sign
 })
 const updateTime = computed(() => {
-  let index = article.value.updateTime.lastIndexOf(':');
-  return article.value.updateTime.slice(0, index)
+  if (article.value.updateTime !== undefined) {
+    let index = article.value.updateTime.lastIndexOf(':');
+    return article.value.updateTime.slice(0, index)
+  }
+  return ''
 })
 
 </script>
