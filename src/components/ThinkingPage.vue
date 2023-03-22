@@ -32,6 +32,9 @@
 </template>
 
 <script setup>
+import {provideHeaderTitle} from "@/utils/store";
+
+provideHeaderTitle.value = '想法'
 
 </script>
 

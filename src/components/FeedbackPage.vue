@@ -54,6 +54,9 @@ import {useSendFeedback} from "@/hooks/feedback";
 import {CODE_SUCCESS} from "@/utils/constants";
 import {showSuccessToast, showFailToast} from 'vant';
 import {useRouter} from 'vue-router'
+import {provideHeaderTitle} from "@/utils/store";
+
+provideHeaderTitle.value = '联系我'
 
 const feedback = reactive({
   title: '',
