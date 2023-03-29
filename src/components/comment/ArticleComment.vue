@@ -1,7 +1,7 @@
 <template>
   <div>
     <PublishComment :parentInfo="parentInfo" @publishSuccess="getComments(page, size)"/>
-    <div class="comment-list-container common-round-border">
+    <div class="comment-list-container">
       <div class="total-comment">{{ commentList.length }}条评论</div>
       <div class="comment-item-list-container">
         <CommentItem v-for="item in commentList" :key="item.id" :comment="item"
@@ -54,7 +54,7 @@ getComments(page, size)
 <style scoped>
 
 .comment-list-container {
-  margin-top: 10px;
+  margin-top: 25px;
 }
 
 .total-comment {
@@ -64,16 +64,11 @@ getComments(page, size)
   align-items: center;
   color: #444444;
   font-weight: 600;
-  border-bottom: 1px solid rgb(235, 235, 235);
+  font-size: 30px;
 }
 
 .comment-item-list-container {
   padding: 10px 0;
-}
-
-.common-round-border {
-  border: 1px solid rgb(235, 235, 235);
-  border-radius: 4px;
 }
 
 </style>

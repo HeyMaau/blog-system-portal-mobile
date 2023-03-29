@@ -48,6 +48,7 @@ const updateTime = computed(() => {
 
 .article-content-container {
   padding: 0 32px 32px;
+  background: white;
 }
 
 .article-title {
@@ -104,7 +105,9 @@ const updateTime = computed(() => {
 }
 
 .article-comment {
-  padding: 0 32px;
+  padding: 30px 32px;
+  margin-top: 20px;
+  background: white;
 }
 
 </style>

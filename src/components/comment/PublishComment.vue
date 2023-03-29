@@ -1,5 +1,5 @@
 <template>
-  <div class="publish-comment-container common-round-border" ref="publishCommentRef">
+  <div class="publish-comment-container" ref="publishCommentRef">
     <textarea class="comment-input-area" ref="inputContentRef" rows="1" placeholder="请输入评论内容"
               v-model="comment.content"></textarea>
     <div v-show="showFull">
@@ -33,7 +33,9 @@
           </svg>
           <EmojiPanel @onClick="emojiClick" v-show="showEmoji" class="emoji-panel"/>
         </div>
-        <van-button type="primary" size="mini" :disabled="buttonDisabled" @click="publishComment">发表</van-button>
+        <van-button class="button-publish" type="primary" size="mini" :disabled="buttonDisabled"
+                    @click="publishComment">发表
+        </van-button>
       </div>
     </div>
   </div>
@@ -144,12 +146,9 @@ onBeforeUnmount(() => {
 <style scoped>
 
 .publish-comment-container {
-  padding: 8px 12px 0;
-}
-
-.common-round-border {
-  border: 1px solid rgb(235, 235, 235);
-  border-radius: 4px;
+  padding: 10px 24px 0;
+  background: #F6F6F6;
+  border-radius: 36px;
 }
 
 :deep(.comment-input-area) {
@@ -160,7 +159,7 @@ onBeforeUnmount(() => {
   line-height: 1.6;
   background: transparent;
   padding: 0;
-  font-size: 15px;
+  font-size: 24px;
   font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
 }
 
@@ -175,7 +174,7 @@ onBeforeUnmount(() => {
   border: none;
   background: transparent;
   outline: none;
-  font-size: 15px;
+  font-size: 24px;
   font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
 }
 
@@ -199,6 +198,10 @@ onBeforeUnmount(() => {
   left: 12px;
   top: 135px;
   transform: translate(-50%, -50%);
+}
+
+.button-publish {
+  width: 100px;
 }
 
 </style>
