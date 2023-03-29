@@ -7,6 +7,7 @@
                       :signature="authorSign" class="author-info-banner"/>
     <div class="article-content" v-html="article.content"></div>
   </div>
+  <ArticleComment class="article-comment"/>
 </template>
 
 <script setup>
@@ -16,6 +17,7 @@ import {shallowRef, computed} from "vue";
 import {API_PORTAL_IMAGE_PATH} from "@/utils/constants";
 import AuthorInfoBanner from "@/components/AuthorInfoBanner";
 import {provideHeaderTitle} from "@/utils/store";
+import ArticleComment from "@/components/comment/ArticleComment";
 
 //获取文章数据
 const route = useRoute()
@@ -99,6 +101,10 @@ const updateTime = computed(() => {
   line-height: 1.5;
   font-weight: 700;
   margin: 20px 0;
+}
+
+.article-comment {
+  padding: 0 32px;
 }
 
 </style>
