@@ -15,7 +15,7 @@
         <div class="emoji-container">
           <svg t="1679914914094" class="icon emoji-icon" viewBox="0 0 1024 1024" version="1.1"
                xmlns="http://www.w3.org/2000/svg"
-               p-id="7718" width="24" height="24" @click="showEmoji = !showEmoji">
+               p-id="7718" width="24" height="24" @click="showEmojiPanel">
             <path d="M872.802928 755.99406 872.864326 755.99406 872.864326 755.624646Z" fill="#8590A6"
                   p-id="7719"></path>
             <path
@@ -36,7 +36,7 @@
                     @click="publishComment">发表
         </van-button>
       </div>
-      <EmojiPanel @onClick="emojiClick" v-show="showEmoji" class="emoji-panel"/>
+      <EmojiPanel @onClick="emojiClick" v-show="showEmoji" class="emoji-panel" ref="emojiPanelRef"/>
     </div>
   </div>
 </template>
@@ -69,6 +69,13 @@ function showPublishComment(event) {
 function hidePublishComment() {
   showFull.value = false
   showEmoji.value = false
+}
+
+const emojiPanelRef = ref(null)
+
+function showEmojiPanel() {
+  showEmoji.value = !showEmoji.value
+  emojiPanelRef.value.setEmojiPageContainerWidth()
 }
 
 //发表评论相关

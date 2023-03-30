@@ -1,15 +1,19 @@
 <template>
   <div class="container">
     <div class="emoji-container">
-      <ul>
-        <li v-for="(item, index) in emojiList[currentPage]" :key="index" @click="onEmojiClick(item)">{{ item }}</li>
-      </ul>
+      <div class="emoji-page-container" ref="emojiPageContainerRef">
+        <div class="emoji-page" ref="emojiPageRefs" v-for="(page, index) in indexList" :key="index">
+          <ul>
+            <li v-for="(item, index) in emojiList[page]" :key="index" @click="onEmojiClick(item)">{{ item }}</li>
+          </ul>
+        </div>
+      </div>
       <div class="pagination-container">
         <div
             :class="[item === currentPage? 'pagination-dot-active': 'pagination-dot-inactive', 'pagination-dot-active-hover']"
             v-for="(item, index) in indexList"
             :key="index"
-            @click="currentPage = item"></div>
+            @click="moveEmojiPage(item)"></div>
       </div>
     </div>
   </div>
@@ -18,9 +22,7 @@
 <script setup>
 import {emoji} from "@/utils/emoji";
 import {EMOJI_NUM_PER_PAGE} from "@/utils/constants";
-import {shallowRef, defineEmits, ref} from "vue";
-
-const currentPage = shallowRef(0)
+import {shallowRef, defineEmits, ref, defineExpose, nextTick} from "vue";
 
 const emit = defineEmits(['onClick']);
 
@@ -37,6 +39,8 @@ function initIndex() {
   }
 }
 
+initIndex()
+
 const emojiList = ref([])
 
 function sliceEmojis() {
@@ -45,18 +49,47 @@ function sliceEmojis() {
   }
 }
 
-initIndex()
 sliceEmojis()
+
+const emojiPageContainerRef = ref(null)
+const emojiPageRefs = ref(null)
+
+const currentPage = shallowRef(0)
+
+function moveEmojiPage(page) {
+  currentPage.value = page
+  const width = emojiPageRefs.value[0].offsetWidth
+  emojiPageContainerRef.value.style.left = -(width * page) + 'px'
+}
+
+const setEmojiPageContainerWidth = () => {
+  nextTick(() => {
+    emojiPageContainerRef.value.style.width = indexList.value.length * emojiPageRefs.value[0].offsetWidth + 'px'
+  })
+}
+
+defineExpose({
+  setEmojiPageContainerWidth
+})
+
 </script>
 
 <style scoped>
 
-.container {
+.emoji-page-container {
+  display: flex;
+  position: relative;
+  width: 1280px;
+  transition: left 400ms ease;
+  left: 0;
+}
 
+.emoji-page {
+  flex-shrink: 0;
+  width: 640px;
 }
 
 ul {
-  margin: 0;
   padding: 5px 5px 20px;
   list-style-type: none;
   height: 260px;
@@ -71,7 +104,7 @@ li {
 }
 
 .emoji-container {
-
+  overflow: hidden;
 }
 
 .pagination-container {
