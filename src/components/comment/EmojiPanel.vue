@@ -10,7 +10,7 @@
       </div>
       <div class="pagination-container">
         <div
-            :class="[item === currentPage? 'pagination-dot-active': 'pagination-dot-inactive', 'pagination-dot-active-hover']"
+            :class="item === currentPage? 'pagination-dot-active': 'pagination-dot-inactive'"
             v-for="(item, index) in indexList"
             :key="index"
             @click="moveEmojiPage(item)"></div>
@@ -60,7 +60,9 @@ const currentPage = shallowRef(0)
 function moveEmojiPage(page) {
   currentPage.value = page
   const width = emojiPageRefs.value[0].offsetWidth
-  emojiPageContainerRef.value.style.left = -(width * page) + 'px'
+  let movingDistance = -width * currentPage.value
+  emojiPageContainerRef.value.style.transition = 'transform 400ms ease'
+  emojiPageContainerRef.value.style.transform = `translate3d(${movingDistance}px, 0, 0)`
 }
 
 const setEmojiPageContainerWidth = () => {
@@ -83,7 +85,7 @@ useEventListener('touchstart', (event) => {
   event.preventDefault()
   if (event.touches.length === 1 || !isMoving) {
     startMovingTime = Date.now()
-    emojiPageContainerRef.value.style.transition = ''
+    emojiPageContainerRef.value.style.transition = null
     startX = event.touches[0].pageX
     isMoving = true
     currentPosition = -emojiPageRefs.value[0].offsetWidth * currentPage.value
@@ -105,7 +107,7 @@ useEventListener('touchmove', (event) => {
     direction = 1
   }
   let movingDX = currentPosition + dX
-  emojiPageContainerRef.value.style.transform = `translate3d(${movingDX}px,0,0)`
+  emojiPageContainerRef.value.style.transform = `translate3d(${movingDX}px, 0, 0)`
 }, {target: emojiPageContainerRef})
 
 useEventListener('touchend', (event) => {
@@ -140,7 +142,7 @@ function touchMoveEmojiPage(canMove) {
   let emojiPageWidth = emojiPageRefs.value[0].offsetWidth
   let movingDistance = -emojiPageWidth * currentPage.value
   emojiPageContainerRef.value.style.transition = 'transform 400ms ease'
-  emojiPageContainerRef.value.style.transform = `translate3d(${movingDistance}px,0,0)`
+  emojiPageContainerRef.value.style.transform = `translate3d(${movingDistance}px, 0, 0)`
 }
 
 </script>
@@ -151,8 +153,6 @@ function touchMoveEmojiPage(canMove) {
   display: flex;
   position: relative;
   width: 1280px;
-  transition: left 400ms ease;
-  left: 0;
 }
 
 .emoji-page {
@@ -185,15 +185,6 @@ li {
 }
 
 .pagination-dot-active {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #808080;
-  margin: 0 10px;
-  cursor: pointer;
-}
-
-.pagination-dot-active-hover:hover {
   width: 10px;
   height: 10px;
   border-radius: 50%;
