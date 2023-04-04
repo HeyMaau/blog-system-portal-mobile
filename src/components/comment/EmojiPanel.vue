@@ -23,6 +23,7 @@
 import {emoji} from "@/utils/emoji";
 import {EMOJI_NUM_PER_PAGE} from "@/utils/constants";
 import {shallowRef, defineEmits, ref, defineExpose, nextTick} from "vue";
+import {useEventListener} from "@vant/use";
 
 const emit = defineEmits(['onClick']);
 
@@ -71,6 +72,76 @@ const setEmojiPageContainerWidth = () => {
 defineExpose({
   setEmojiPageContainerWidth
 })
+
+let startX = 0
+let isMoving = false
+let startMovingTime = 0
+let stopMovingTime = 0
+let currentPosition = 0
+
+useEventListener('touchstart', (event) => {
+  event.preventDefault()
+  if (event.touches.length === 1 || !isMoving) {
+    startMovingTime = Date.now()
+    emojiPageContainerRef.value.style.transition = ''
+    startX = event.touches[0].pageX
+    isMoving = true
+    currentPosition = -emojiPageRefs.value[0].offsetWidth * currentPage.value
+  }
+}, {target: emojiPageContainerRef})
+
+//滑动方向：0-左滑，1-右滑
+let direction = 0
+
+let dX = 0
+
+useEventListener('touchmove', (event) => {
+  event.preventDefault()
+  if (!isMoving) return
+  dX = event.touches[0].pageX - startX
+  if (dX < 0) {
+    direction = 0
+  } else {
+    direction = 1
+  }
+  let movingDX = currentPosition + dX
+  emojiPageContainerRef.value.style.transform = `translate3d(${movingDX}px,0,0)`
+}, {target: emojiPageContainerRef})
+
+useEventListener('touchend', (event) => {
+  event.preventDefault()
+  isMoving = false
+  stopMovingTime = Date.now()
+  const interval = stopMovingTime - startMovingTime
+  if (interval < 300) {
+    touchMoveEmojiPage(true)
+  } else {
+    const emojiPageWidth = emojiPageRefs.value[0].offsetWidth
+    if (Math.abs(dX / emojiPageWidth) < 0.4) {
+      touchMoveEmojiPage(false)
+    } else {
+      touchMoveEmojiPage(true)
+    }
+  }
+}, {target: emojiPageContainerRef})
+
+function touchMoveEmojiPage(canMove) {
+  if (canMove) {
+    if (direction === 0) {
+      if (currentPage.value !== indexList.value.length - 1) {
+        currentPage.value++
+      }
+    } else {
+      if (currentPage.value !== 0) {
+        currentPage.value--
+      }
+    }
+  }
+  let emojiPageWidth = emojiPageRefs.value[0].offsetWidth
+  let movingDistance = -emojiPageWidth * currentPage.value
+  emojiPageContainerRef.value.style.transition = 'transform 400ms ease'
+  emojiPageContainerRef.value.style.transform = `translate3d(${movingDistance}px,0,0)`
+}
 
 </script>
 
