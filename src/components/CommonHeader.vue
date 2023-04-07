@@ -104,6 +104,8 @@ function doSearch(keyword) {
 
 .search-bar {
   width: 350px;
+  padding: 0;
+  margin-left: 20px;
 }
 
 :deep(.van-search__content) {
