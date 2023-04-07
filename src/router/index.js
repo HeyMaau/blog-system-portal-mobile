@@ -1,11 +1,12 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
 
 import MainContainer from "@/components/MainContainer";
-import FeedbackPage from "@/components/FeedbackPage"
-import ThinkingPage from "@/components/ThinkingPage"
-import CategoryPage from "@/components/CategoryPage"
-import ArticleDetailPage from "@/components/ArticleDetailPage"
-import HomePage from '@/components/HomePage'
+import FeedbackPage from "@/components/page/FeedbackPage"
+import ThinkingPage from "@/components/page/ThinkingPage"
+import CategoryPage from "@/components/page/CategoryPage"
+import ArticleDetailPage from "@/components/page/ArticleDetailPage"
+import HomePage from '@/components/page/HomePage'
+import SearchPage from '@/components/page/SearchPage'
 
 const routes = [
     {
@@ -15,6 +16,7 @@ const routes = [
             {path: 'thinking', component: ThinkingPage},
             {path: 'category/:id', component: CategoryPage},
             {path: 'article/:id', component: ArticleDetailPage},
+            {path: 'search', component: SearchPage}
         ]
     }
 ]

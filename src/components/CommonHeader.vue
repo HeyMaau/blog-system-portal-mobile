@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <van-image height="30" width="30" src="/favicon.ico" class="logo"/>
-    <van-search v-model="value" placeholder="请输入搜索关键词" class="search-bar"/>
+    <van-search v-model="value" placeholder="请输入搜索关键词" class="search-bar" @search="doSearch"/>
     <van-image height="30" width="30" src="/favicon.ico" class="avatar" round v-show="showAvatar"/>
     <span v-show="!showAvatar" class="title van-ellipsis">{{ title }}</span>
     <van-icon name="bars" size="25" class="menu-icon" @click="showPopup"/>
@@ -24,7 +24,7 @@
 
 <script setup>
 import {ref, defineProps, shallowRef} from "vue";
-import {onBeforeRouteUpdate} from 'vue-router'
+import {onBeforeRouteUpdate, useRouter} from 'vue-router'
 import {getCategoriesApi} from "@/hooks/article";
 import {CODE_SUCCESS} from "@/utils/constants";
 import {provideCategoryList} from "@/utils/store";
@@ -59,6 +59,13 @@ onBeforeRouteUpdate(() => {
 //关闭弹出层
 function closePopup() {
   show.value = false
+}
+
+const router = useRouter()
+
+//搜索
+function doSearch(keyword) {
+  router.push({path: '/search', query: {keyword}})
 }
 
 </script>
