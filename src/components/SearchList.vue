@@ -2,45 +2,21 @@
   <div class="container" v-for="item in searchList" :key="item.id">
     <router-link :to="`/article/${item.id}`" class="article-title" v-html="item.title"/>
     <div class="rich-content-container">
-      <div class="short-article-container" v-if="collapseState[item.id]">
+      <div class="short-article-container">
         <van-image :src="`${API_PORTAL_IMAGE_PATH}/${item.cover}`" width="100%" height="150px" fit="cover"/>
-        <div class="article-content-summary-container">
-          <span v-html="item.content"/>
-          <button class="button-full-article" @click="showFullArticle(item.id)">阅读全文
-            <van-icon name="arrow-down"/>
-          </button>
-        </div>
+        <span v-html="item.content" class="van-multi-ellipsis--l3"/>
       </div>
-      <div class="full-article-container" v-html="fullArticle.content" v-else></div>
     </div>
   </div>
 </template>
 
 <script setup>
-import {defineProps, ref, shallowRef, watch} from "vue";
+import {defineProps} from "vue";
 import {API_PORTAL_IMAGE_PATH} from "@/utils/constants";
-import {getFullArticleApi, initCollapseState} from "@/hooks/article";
 
-const props = defineProps({
+defineProps({
   searchList: Array
 })
-
-//监听数组的变化，创建文章折叠状态管理器
-const collapseState = ref({})
-watch(() => props.searchList, () => {
-  //清空状态管理器
-  initCollapseState(props.searchList, collapseState.value)
-}, {deep: true})
-
-//展示全文
-const fullArticle = shallowRef({})
-
-function showFullArticle(articleID) {
-  getFullArticleApi(articleID).then(({data: response}) => {
-    fullArticle.value = response.data
-    collapseState.value[articleID] = false
-  })
-}
 
 </script>
 
@@ -90,13 +66,6 @@ function showFullArticle(articleID) {
 :deep(.full-article-container h3) {
   font-size: 39px;
   font-weight: 600;
-}
-
-.button-full-article {
-  margin-left: 10px;
-  border: none;
-  background: white;
-  color: #175199;
 }
 
 :deep(.full-article-container img) {
