@@ -1,10 +1,12 @@
 <template>
   <div class="container">
     <van-image height="30" width="30" src="/favicon.ico" class="logo"/>
-    <van-search v-model="value" placeholder="请输入搜索关键词" class="search-bar" @search="doSearch"/>
+    <van-search v-model="value" placeholder="请输入搜索关键词" :class="showMenu? 'search-bar': 'search-bar-long'"
+                @search="doSearch"/>
     <van-image height="30" width="30" src="/favicon.ico" class="avatar" round v-show="showAvatar"/>
-    <span v-show="!showAvatar" class="title van-ellipsis">{{ title }}</span>
+    <span v-show="showAvatar" class="title van-ellipsis">{{ title }}</span>
     <van-icon name="bars" size="25" class="menu-icon" @click="showPopup" v-show="showMenu"/>
+    <button v-show="!showMenu" class="cancel-button" @click="goBack">取消</button>
     <van-popup
         v-model:show="show"
         position="right"
@@ -68,23 +70,31 @@ function doSearch(keyword) {
   router.push({path: '/search', query: {keyword}})
 }
 
+//返回上一页
+function goBack() {
+  router.go(-1)
+}
+
 </script>
 
 <style scoped>
 
 .logo {
   padding-left: 30px;
+  flex-shrink: 0;
 }
 
 .menu-icon {
   position: absolute;
   padding: 20px;
   left: 660px;
+  flex-shrink: 0;
 }
 
 .avatar {
   background-color: dodgerblue;
   margin-left: 120px;
+  flex-shrink: 0;
 }
 
 .container {
@@ -106,6 +116,15 @@ function doSearch(keyword) {
   width: 350px;
   padding: 0;
   margin-left: 20px;
+  flex-shrink: 0;
+}
+
+.search-bar-long {
+  width: 530px;
+  padding: 0;
+  margin-left: 20px;
+  margin-right: 10px;
+  flex-shrink: 0;
 }
 
 :deep(.van-search__content) {
@@ -117,6 +136,16 @@ function doSearch(keyword) {
   width: 230px;
   font-weight: bold;
   text-align: center;
+  flex-shrink: 0;
+}
+
+.cancel-button {
+  background: none;
+  border: none;
+  color: #056de8;
+  height: 100%;
+  padding: 0 20px;
+  display: inline;
 }
 
 </style>
