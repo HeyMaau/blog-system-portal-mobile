@@ -4,3 +4,4 @@ export const API_PORTAL_IMAGE_PATH = process.env.VUE_APP_SERVER_ADDRESS + '/imag
 export const ARTICLE_SUMMARY_LENGTH = 37
 export const INFINITE_SCROLL_THRESHOLD = 50
 export const EMOJI_NUM_PER_PAGE = 44
+export const KEY_CATEGORY_LIST = 'category_list'
