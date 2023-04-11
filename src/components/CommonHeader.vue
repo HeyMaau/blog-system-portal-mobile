@@ -4,7 +4,7 @@
     <van-search v-model="value" placeholder="请输入搜索关键词" class="search-bar" @search="doSearch"/>
     <van-image height="30" width="30" src="/favicon.ico" class="avatar" round v-show="showAvatar"/>
     <span v-show="!showAvatar" class="title van-ellipsis">{{ title }}</span>
-    <van-icon name="bars" size="25" class="menu-icon" @click="showPopup"/>
+    <van-icon name="bars" size="25" class="menu-icon" @click="showPopup" v-show="showMenu"/>
     <van-popup
         v-model:show="show"
         position="right"
@@ -32,7 +32,8 @@ import {provideCategoryList} from "@/utils/store";
 //接收props
 defineProps({
   showAvatar: Boolean,
-  title: String
+  title: String,
+  showMenu: Boolean
 })
 //获取文章分类信息
 let categoryList = shallowRef([])
