@@ -15,18 +15,18 @@
       <van-collapse v-model="activeNames">
         <van-collapse-item title="文章" name="1">
           <van-cell v-for="item in categoryList" :key="item.id" :title="item.name" :to="`/category/${item.id}`"
-                    is-link/>
+                    is-link @click="closePopup"/>
         </van-collapse-item>
       </van-collapse>
-      <van-cell title="想法" is-link to="/thinking"/>
-      <van-cell title="联系我" is-link to="/feedback"/>
+      <van-cell title="想法" is-link to="/thinking" @click="closePopup"/>
+      <van-cell title="联系我" is-link to="/feedback" @click="closePopup"/>
     </van-popup>
   </div>
 </template>
 
 <script setup>
 import {ref, defineProps, shallowRef} from "vue";
-import {onBeforeRouteUpdate, useRouter} from 'vue-router'
+import {useRouter} from 'vue-router'
 import {getCategoriesApi} from "@/hooks/article";
 import {CODE_SUCCESS, KEY_CATEGORY_LIST} from "@/utils/constants";
 
@@ -53,10 +53,6 @@ const showPopup = () => {
 const value = ref('');
 //弹出层
 const activeNames = ref(['1']);
-//路由变化时关闭弹窗及更新标题
-onBeforeRouteUpdate(() => {
-  show.value = false
-})
 
 //关闭弹出层
 function closePopup() {
