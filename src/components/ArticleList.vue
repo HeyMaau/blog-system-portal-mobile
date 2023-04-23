@@ -13,7 +13,10 @@
           </button>
         </div>
       </div>
-      <div class="full-article-container" v-html="fullArticle.content" v-else></div>
+      <div v-else>
+        <van-image :src="`${API_PORTAL_IMAGE_PATH}/${item.cover}`" width="100%" fit="cover"/>
+        <div class="full-article-content" v-html="fullArticle.content"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -79,17 +82,17 @@ function showFullArticle(articleID) {
   color: #333333;
 }
 
-:deep(.full-article-container h1) {
+:deep(.full-article-content h1) {
   font-size: 43px;
   font-weight: 600;
 }
 
-:deep(.full-article-container h2) {
+:deep(.full-article-content h2) {
   font-size: 41px;
   font-weight: 600;
 }
 
-:deep(.full-article-container h3) {
+:deep(.full-article-content h3) {
   font-size: 39px;
   font-weight: 600;
 }
@@ -101,7 +104,7 @@ function showFullArticle(articleID) {
   color: #175199;
 }
 
-:deep(.full-article-container img) {
+:deep(.full-article-content img) {
   max-width: 100%;
 }
 
