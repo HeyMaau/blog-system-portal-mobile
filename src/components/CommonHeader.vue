@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <van-image height="30" width="30" src="/favicon.ico" class="logo"/>
-    <van-search v-model="value" placeholder="请输入搜索关键词" :class="showMenu? 'search-bar': 'search-bar-long'"
+    <van-search v-model="value" placeholder="搜索" :class="showMenu? 'search-bar': 'search-bar-long'"
                 @search="doSearch"/>
     <van-image height="30" width="30" src="/favicon.ico" class="avatar" round v-show="showAvatar"/>
-    <span v-show="!showAvatar" class="title van-ellipsis">{{ title }}</span>
+    <span v-show="!showAvatar && showMenu" class="title van-ellipsis">{{ title }}</span>
     <van-icon name="bars" size="25" class="menu-icon" @click="showPopup" v-show="showMenu"/>
     <button v-show="!showMenu" class="cancel-button" @click="goBack">取消</button>
     <van-popup
@@ -112,7 +112,6 @@ function goBack() {
   width: 350px;
   padding: 0;
   margin-left: 20px;
-  flex-shrink: 0;
 }
 
 .search-bar-long {
@@ -128,11 +127,14 @@ function goBack() {
 }
 
 .title {
+  color: dodgerblue;
   font-size: 30px;
-  width: 230px;
+  width: 250px;
   font-weight: bold;
   text-align: center;
   flex-shrink: 0;
+  margin-right: 80px;
+  margin-left: 25px;
 }
 
 .cancel-button {
