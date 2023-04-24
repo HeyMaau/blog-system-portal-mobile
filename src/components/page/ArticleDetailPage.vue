@@ -1,11 +1,13 @@
 <template>
-  <van-image width="100%" height="100%" fit="cover" :src="coverUrl"/>
-  <div class="article-content-container">
-    <div class="article-title">{{ article.title }}</div>
-    <div class="article-update-time">编辑于 {{ updateTime }}</div>
-    <AuthorInfoBanner :avatarSrc="avatarUrl" :name="authorName"
-                      :signature="authorSign" class="author-info-banner"/>
-    <div class="article-content" v-html="article.content"></div>
+  <div class="container">
+    <van-image width="100%" height="100%" fit="cover" :src="coverUrl"/>
+    <div class="article-content-container">
+      <div class="article-title">{{ article.title }}</div>
+      <div class="article-update-time">编辑于 {{ updateTime }}</div>
+      <AuthorInfoBanner :avatarSrc="avatarUrl" :name="authorName"
+                        :signature="authorSign" class="author-info-banner"/>
+      <div class="article-content" v-html="article.content"></div>
+    </div>
   </div>
   <ArticleComment class="article-comment"/>
 </template>
@@ -46,9 +48,12 @@ const updateTime = computed(() => {
 
 <style scoped>
 
+.container {
+  background: white;
+}
+
 .article-content-container {
   padding: 0 32px 32px;
-  background: white;
 }
 
 .article-title {
