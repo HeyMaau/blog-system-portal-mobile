@@ -29,12 +29,11 @@ import {ref, defineProps, shallowRef} from "vue";
 import {useRouter} from 'vue-router'
 import {getCategoriesApi} from "@/hooks/article";
 import {CODE_SUCCESS, KEY_CATEGORY_LIST} from "@/utils/constants";
+import {showAvatar, showMenu} from "@/hooks/header";
 
 //接收props
 defineProps({
-  showAvatar: Boolean,
-  title: String,
-  showMenu: Boolean
+  title: String
 })
 //获取文章分类信息
 let categoryList = shallowRef([])
@@ -115,7 +114,7 @@ function goBack() {
 }
 
 .search-bar-long {
-  width: 530px;
+  width: 520px;
   padding: 0;
   margin-left: 20px;
   margin-right: 10px;

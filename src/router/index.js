@@ -1,4 +1,5 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
+import {updateHeaderState} from "@/hooks/header";
 
 import MainContainer from "@/components/MainContainer";
 import FeedbackPage from "@/components/page/FeedbackPage"
@@ -21,7 +22,13 @@ const routes = [
     }
 ]
 
-export default createRouter({
+const router = createRouter({
     history: createWebHashHistory('/m/'),
     routes,
 })
+
+router.beforeEach(to => {
+    updateHeaderState(to.path)
+})
+
+export default router
