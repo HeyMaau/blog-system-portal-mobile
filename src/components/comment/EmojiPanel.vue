@@ -170,7 +170,7 @@ ul {
 li {
   display: inline-flex;
   padding: 5px;
-  font-size: 34px;
+  font-size: 37px;
   cursor: pointer;
 }
 
