@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <van-image height="30" width="30" src="/favicon.ico" class="logo"/>
+    <van-image :src="`${publicPath}logo.png`" class="logo"/>
     <van-search v-model="value" placeholder="搜索" :class="showMenu? 'search-bar': 'search-bar-long'"
                 @search="doSearch"/>
     <van-image height="30" width="30" src="/favicon.ico" class="avatar" round v-show="showAvatar"/>
@@ -30,6 +30,8 @@ import {useRouter} from 'vue-router'
 import {getCategoriesApi} from "@/hooks/article";
 import {CODE_SUCCESS, KEY_CATEGORY_LIST} from "@/utils/constants";
 import {showAvatar, showMenu} from "@/hooks/header";
+
+const publicPath = process.env.BASE_URL
 
 //接收props
 defineProps({
@@ -75,8 +77,9 @@ function goBack() {
 <style scoped>
 
 .logo {
-  padding-left: 30px;
   flex-shrink: 0;
+  height: 70%;
+  margin-left: 20px;
 }
 
 .menu-icon {
@@ -88,7 +91,7 @@ function goBack() {
 
 .avatar {
   background-color: dodgerblue;
-  margin-left: 120px;
+  margin-left: 50px;
   flex-shrink: 0;
 }
 
@@ -108,15 +111,15 @@ function goBack() {
 }
 
 .search-bar {
-  width: 350px;
+  width: 280px;
   padding: 0;
-  margin-left: 20px;
+  margin-left: 10px;
 }
 
 .search-bar-long {
-  width: 520px;
+  width: 380px;
   padding: 0;
-  margin-left: 20px;
+  margin-left: 10px;
   margin-right: 10px;
   flex-shrink: 0;
 }
@@ -128,7 +131,7 @@ function goBack() {
 .title {
   color: dodgerblue;
   font-size: 30px;
-  width: 250px;
+  width: 200px;
   font-weight: bold;
   text-align: center;
   flex-shrink: 0;
