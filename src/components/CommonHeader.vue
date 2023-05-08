@@ -3,7 +3,7 @@
     <van-image :src="`${publicPath}logo.png`" class="logo" height="70%"/>
     <van-search v-model="value" placeholder="搜索" :class="showMenu? 'search-bar': 'search-bar-long'"
                 @search="doSearch"/>
-    <van-image height="30" width="30" :src="avatarUrl" class="avatar" round v-show="showAvatar"/>
+    <van-image height="30" width="30" :src="avatarUrl" class="avatar" round v-show="showAvatar" @click="jump2AboutMe"/>
     <span v-show="!showAvatar && showMenu" class="title van-ellipsis">{{ title }}</span>
     <van-icon name="bars" size="25" class="menu-icon" @click="showPopup" v-show="showMenu"/>
     <button v-show="!showMenu" class="cancel-button" @click="goBack">取消</button>
@@ -20,6 +20,7 @@
       </van-collapse>
       <van-cell title="想法" is-link to="/thinking" @click="closePopup"/>
       <van-cell title="联系我" is-link to="/feedback" @click="closePopup"/>
+      <van-cell title="关于我" is-link to="/about" @click="closePopup"/>
     </van-popup>
   </div>
 </template>
@@ -36,7 +37,7 @@ import {provideAuthorInfo} from "@/utils/store";
 const publicPath = process.env.BASE_URL
 
 //作者头像
-const avatarUrl = shallowRef('')
+const avatarUrl = shallowRef(`${API_PORTAL_IMAGE_PATH}/${provideAuthorInfo.value.avatar}`)
 watch(provideAuthorInfo, (newValue) => {
   console.log(newValue)
   avatarUrl.value = `${API_PORTAL_IMAGE_PATH}/${provideAuthorInfo.value.avatar}`
@@ -83,6 +84,11 @@ function goBack() {
 
 //获取作者信息
 useGetAuthorInfo()
+
+//点击头像事件
+function jump2AboutMe() {
+  router.push('/about')
+}
 
 </script>
 

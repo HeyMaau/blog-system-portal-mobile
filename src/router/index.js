@@ -8,6 +8,7 @@ import CategoryPage from "@/components/page/CategoryPage"
 import ArticleDetailPage from "@/components/page/ArticleDetailPage"
 import HomePage from '@/components/page/HomePage'
 import SearchPage from '@/components/page/SearchPage'
+import AboutMePage from '@/components/page/AboutMePage'
 
 const routes = [
     {
@@ -17,7 +18,8 @@ const routes = [
             {path: 'thinking', component: ThinkingPage},
             {path: 'category/:id', component: CategoryPage},
             {path: 'article/:id', component: ArticleDetailPage},
-            {path: 'search', component: SearchPage}
+            {path: 'search', component: SearchPage},
+            {path: 'about', component: AboutMePage}
         ]
     }
 ]
