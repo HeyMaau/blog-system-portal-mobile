@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <van-image :src="`${publicPath}logo.png`" class="logo" height="70%"/>
+    <van-image :src="`${publicPath}logo.png`" class="logo" height="70%" @click="jump2HomePage"/>
     <van-search v-model="value" placeholder="搜索" :class="showMenu? 'search-bar': 'search-bar-long'"
                 @search="doSearch"/>
     <van-image height="30" width="30" :src="avatarUrl" class="avatar" round v-show="showAvatar" @click="jump2AboutMe"/>
@@ -90,6 +90,11 @@ function jump2AboutMe() {
   router.push('/about')
 }
 
+//点击LOGO事件
+function jump2HomePage() {
+  router.push('/')
+}
+
 </script>
 
 <style scoped>
@@ -107,7 +112,6 @@ function jump2AboutMe() {
 }
 
 .avatar {
-  background-color: dodgerblue;
   margin-left: 50px;
   flex-shrink: 0;
 }
