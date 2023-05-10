@@ -1,5 +1,6 @@
 <template>
-  <ArticleList :articleList="articleList"/>
+  <ArticleList :articleList="articleList" v-if="articleList.length > 0"/>
+  <EmptyView class="empty-view" v-else/>
 </template>
 
 <script setup>
@@ -9,6 +10,7 @@ import {useRoute, onBeforeRouteUpdate} from 'vue-router'
 import {shallowReactive} from "vue";
 import {INFINITE_SCROLL_THRESHOLD} from "@/utils/constants";
 import {setCategoryName} from "@/hooks/header";
+import EmptyView from "@/components/EmptyView";
 
 //获取文章数据
 const route = useRoute()
@@ -39,5 +41,8 @@ useInfiniteScroll(INFINITE_SCROLL_THRESHOLD, () => {
 </script>
 
 <style scoped>
+.empty-view {
+  margin-top: 50px;
+}
 
 </style>
