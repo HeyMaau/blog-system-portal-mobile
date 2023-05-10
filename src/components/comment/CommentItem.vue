@@ -1,6 +1,6 @@
 <template>
   <div class="comment-item-container">
-    <img :src="`https://api.multiavatar.com/${comment.userAvatar}.png?apikey=t3JID2jWxkVU5X`" width="24" height="24">
+    <img :src="avatarUrl" width="24" height="24">
     <div class="comment-content-container">
       <div class="comment-author-name">
         {{ comment.userName }}
@@ -42,11 +42,14 @@
 <script setup>
 import PublishComment from "./PublishComment";
 import {shallowRef, defineProps, defineEmits} from "vue";
+import {API_PORTAL_IMAGE_PATH} from "@/utils/constants";
 
-defineProps({
+const props = defineProps({
   comment: Object,
   parentInfo: Object
 })
+
+const avatarUrl = `${API_PORTAL_IMAGE_PATH}/comment/${props.comment.userAvatar}`
 
 const emit = defineEmits(['replySuccess', 'childrenReplySuccess']);
 
