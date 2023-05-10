@@ -11,16 +11,19 @@
         v-model:show="show"
         position="right"
         :style="{ width: '60%', height: '100%' }">
-      <van-cell title="首页" is-link to="/" @click="closePopup"/>
+      <van-cell title="首页" is-link to="/" @click="closePopup" :class="{'active-path':provideRouterPath === '/'}"/>
       <van-collapse v-model="activeNames">
         <van-collapse-item title="文章" name="1">
           <van-cell v-for="item in categoryList" :key="item.id" :title="item.name" :to="`/category/${item.id}`"
-                    is-link @click="closePopup"/>
+                    is-link @click="closePopup" :class="{'active-path':provideRouterPath.endsWith(item.id)}"/>
         </van-collapse-item>
       </van-collapse>
-      <van-cell title="想法" is-link to="/thinking" @click="closePopup"/>
-      <van-cell title="联系我" is-link to="/feedback" @click="closePopup"/>
-      <van-cell title="关于我" is-link to="/about" @click="closePopup"/>
+      <van-cell title="想法" is-link to="/thinking" @click="closePopup"
+                :class="{'active-path':provideRouterPath === '/thinking'}"/>
+      <van-cell title="联系我" is-link to="/feedback" @click="closePopup"
+                :class="{'active-path':provideRouterPath === '/feedback'}"/>
+      <van-cell title="关于我" is-link to="/about" @click="closePopup"
+                :class="{'active-path':provideRouterPath === '/about'}"/>
     </van-popup>
   </div>
 </template>
@@ -32,7 +35,7 @@ import {getCategoriesApi} from "@/hooks/article";
 import {API_PORTAL_IMAGE_PATH, CODE_SUCCESS, KEY_CATEGORY_LIST} from "@/utils/constants";
 import {showAvatar, showMenu} from "@/hooks/header";
 import {useGetAuthorInfo} from "@/hooks/author";
-import {provideAuthorInfo} from "@/utils/store";
+import {provideAuthorInfo, provideRouterPath} from "@/utils/store";
 
 const publicPath = process.env.BASE_URL
 
@@ -167,6 +170,11 @@ function jump2HomePage() {
   height: 100%;
   padding: 0 20px;
   display: inline;
+}
+
+.active-path {
+  color: #056de8;
+  font-weight: bold;
 }
 
 </style>

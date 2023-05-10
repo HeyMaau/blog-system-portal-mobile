@@ -9,6 +9,7 @@ import ArticleDetailPage from "@/components/page/ArticleDetailPage"
 import HomePage from '@/components/page/HomePage'
 import SearchPage from '@/components/page/SearchPage'
 import AboutMePage from '@/components/page/AboutMePage'
+import {provideRouterPath} from "@/utils/store";
 
 const routes = [
     {
@@ -31,6 +32,7 @@ const router = createRouter({
 
 router.beforeEach(to => {
     updateHeaderState(to.path)
+    provideRouterPath.value = to.path
 })
 
 export default router
