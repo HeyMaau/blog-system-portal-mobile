@@ -58,8 +58,7 @@ import {provideAuthorInfo, provideHeaderTitle} from "@/utils/store";
 import {API_PORTAL_IMAGE_PATH} from "@/utils/constants";
 
 const avatarUrl = shallowRef(`${API_PORTAL_IMAGE_PATH}/${provideAuthorInfo.value.avatar}`)
-watch(provideAuthorInfo, (newValue) => {
-  console.log(newValue)
+watch(provideAuthorInfo, () => {
   avatarUrl.value = `${API_PORTAL_IMAGE_PATH}/${provideAuthorInfo.value.avatar}`
 })
 

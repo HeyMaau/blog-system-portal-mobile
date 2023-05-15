@@ -1,6 +1,10 @@
 import {createApp} from 'vue'
 import App from './App.vue'
 import router from '@/router/index'
+import VConsole from 'vconsole'
+
+// eslint-disable-next-line no-unused-vars
+const vConsole = new VConsole()
 
 import {
     NavBar,

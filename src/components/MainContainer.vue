@@ -9,10 +9,6 @@
 <script setup>
 import CommonHeader from "@/components/CommonHeader";
 import {provideHeaderTitle} from "@/utils/store";
-import VConsole from 'vconsole'
-
-// eslint-disable-next-line no-unused-vars
-const vConsole = new VConsole()
 
 </script>
 

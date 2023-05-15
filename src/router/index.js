@@ -1,4 +1,4 @@
-import {createRouter, createWebHashHistory} from 'vue-router'
+import {createRouter, createWebHashHistory, createWebHistory} from 'vue-router'
 import {updateHeaderState} from "@/hooks/header";
 
 import MainContainer from "@/components/MainContainer";
@@ -26,7 +26,7 @@ const routes = [
 ]
 
 const router = createRouter({
-    history: createWebHashHistory('/m/'),
+    history: process.env.NODE_ENV === 'production' ? createWebHistory() : createWebHashHistory('/m/'),
     routes,
 })
 
