@@ -15,7 +15,7 @@
 <script setup>
 import {getFullArticleApi} from "@/hooks/article";
 import {useRoute} from "vue-router";
-import {shallowRef, computed} from "vue";
+import {shallowRef, computed, nextTick} from "vue";
 import {API_PORTAL_IMAGE_PATH} from "@/utils/constants";
 import AuthorInfoBanner from "@/components/AuthorInfoBanner";
 import {provideHeaderTitle} from "@/utils/store";
@@ -35,6 +35,9 @@ getFullArticleApi(route.params.id).then(({data: response}) => {
   avatarUrl.value = response.data.user.avatar
   authorName.value = response.data.user.userName
   authorSign.value = response.data.user.sign
+  nextTick(() => {
+    document.title = `${article.value.title} - 卧卷`
+  })
 })
 const updateTime = computed(() => {
   if (article.value.updateTime !== undefined) {

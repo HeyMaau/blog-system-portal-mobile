@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <svg t="1678791525084" class="icon icon-position" viewBox="0 0 2594 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+    <svg t="1678791525084" class="icon icon-position" viewBox="0 0 2594 1024" version="1.1"
+         xmlns="http://www.w3.org/2000/svg"
          p-id="7473" width="200" height="200">
       <path
           d="M1251.851064 206.204515h95.58506v91.761657h-95.58506zM423.036793 217.674722h57.783058v24.646905h-57.783058z"
@@ -33,8 +34,15 @@
 
 <script setup>
 import {provideHeaderTitle} from "@/utils/store";
+import {onBeforeMount} from "vue";
 
 provideHeaderTitle.value = '想法'
+
+//设置网页title
+// eslint-disable-next-line
+onBeforeMount(() => {
+  document.title = '想法 - 卧卷'
+})
 
 </script>
 

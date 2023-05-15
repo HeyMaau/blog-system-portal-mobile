@@ -5,7 +5,7 @@
 <script setup>
 import {doSearchApi} from "@/hooks/search";
 import {CODE_SUCCESS} from "@/utils/constants";
-import {ref} from "vue";
+import {onBeforeMount, ref} from "vue";
 import {useRoute, onBeforeRouteUpdate} from "vue-router";
 import {showFailToast} from "vant";
 import SearchList from "@/components/SearchList";
@@ -32,6 +32,11 @@ onBeforeRouteUpdate(to => {
   page = 1
   size = 5
   doSearch(to.query.keyword, page, size)
+})
+
+//更新网页title
+onBeforeMount(() => {
+  document.title = `${route.query.keyword} | 搜索结果 - 卧卷`
 })
 
 </script>

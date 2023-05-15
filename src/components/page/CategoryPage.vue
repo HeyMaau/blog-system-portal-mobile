@@ -7,10 +7,11 @@
 import ArticleList from "@/components/ArticleList";
 import {useGetArticles, useInfiniteScroll} from "@/hooks/article";
 import {useRoute, onBeforeRouteUpdate} from 'vue-router'
-import {shallowReactive} from "vue";
+import {shallowReactive, onBeforeMount} from "vue";
 import {INFINITE_SCROLL_THRESHOLD} from "@/utils/constants";
 import {setCategoryName} from "@/hooks/header";
 import EmptyView from "@/components/EmptyView";
+import {provideHeaderTitle} from "@/utils/store";
 
 //获取文章数据
 const route = useRoute()
@@ -36,6 +37,11 @@ useInfiniteScroll(INFINITE_SCROLL_THRESHOLD, () => {
   if (!noMore.value) {
     noMore = useGetArticles(++page, size, route.params.id, articleList)
   }
+})
+
+//设置网页title
+onBeforeMount(() => {
+  document.title = `${provideHeaderTitle.value} | 分类 - 卧卷`
 })
 
 </script>

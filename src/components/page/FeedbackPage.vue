@@ -49,7 +49,7 @@
 </template>
 
 <script setup>
-import {reactive} from "vue";
+import {onBeforeMount, reactive} from "vue";
 import {useSendFeedback} from "@/hooks/feedback";
 import {CODE_SUCCESS} from "@/utils/constants";
 import {showSuccessToast, showFailToast} from 'vant';
@@ -80,6 +80,11 @@ async function onSubmit() {
     showFailToast('提交失败，请稍后重试')
   }
 }
+
+//设置网页title
+onBeforeMount(() => {
+  document.title = '联系我 - 卧卷'
+})
 
 </script>
 

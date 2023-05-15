@@ -53,7 +53,7 @@
 <script setup>
 
 //作者头像
-import {shallowRef, watch} from "vue";
+import {onBeforeMount, shallowRef, watch} from "vue";
 import {provideAuthorInfo, provideHeaderTitle} from "@/utils/store";
 import {API_PORTAL_IMAGE_PATH} from "@/utils/constants";
 
@@ -64,6 +64,11 @@ watch(provideAuthorInfo, () => {
 
 //设置顶部导航栏标题
 provideHeaderTitle.value = '关于我'
+
+//设置网页title
+onBeforeMount(() => {
+  document.title = '关于我 - 卧卷'
+})
 
 </script>
 
