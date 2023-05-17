@@ -1,7 +1,7 @@
 <template>
   <SkeletonView :number="5" :row="2" v-if="loading"/>
-  <ArticleList :articleList="articleList" v-else/>
-  <EmptyView class="empty-view"/>
+  <ArticleList :articleList="articleList" v-if="!loading && !empty"/>
+  <EmptyView class="empty-view" v-if="empty"/>
 </template>
 
 <script setup>
@@ -20,12 +20,11 @@ const route = useRoute()
 let page = 1;
 let size = 5;
 const articleList = shallowReactive([])
-let noMore
 
-noMore = useGetArticles(page, size, route.params.id, articleList)
+let noMore = useGetArticles(page, size, route.params.id, articleList)
 
 //使用骨架屏
-const {loading} = useSkeletonAndEmpty(articleList, false)
+const {loading, empty} = useSkeletonAndEmpty(articleList)
 
 //获取分类名称并设置
 setCategoryName(route.params.id);
@@ -33,9 +32,8 @@ setCategoryName(route.params.id);
 onBeforeRouteUpdate((to) => {
   //先清空数组
   articleList.length = 0
-  useGetArticles(page, size, to.params.id, articleList)
+  noMore = useGetArticles(page, size, to.params.id, articleList)
   setCategoryName(to.params.id)
-  // showSkeleton()
 })
 
 //无限滚动

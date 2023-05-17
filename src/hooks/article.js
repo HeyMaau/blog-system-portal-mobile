@@ -1,8 +1,9 @@
 import axios from "axios";
 import {API_PORTAL_PATH, ARTICLE_SUMMARY_LENGTH, CODE_SUCCESS} from "@/utils/constants";
 import {useEventListener} from '@vant/use'
-import {onMounted, ref, shallowRef, watch} from "vue";
+import {onMounted, shallowRef, watch} from "vue";
 import {onBeforeRouteUpdate} from "vue-router";
+import {provideNoMore} from "@/utils/store";
 
 const request = axios.create({
     baseURL: API_PORTAL_PATH,
@@ -13,31 +14,36 @@ export function getCategoriesApi() {
     return request.get('/website_info/categories')
 }
 
-function getArticlesApi(page, size, categoryID) {
-    return request.get('/article/list', {
-        params: {
-            page,
-            size,
-            categoryID
-        }
-    })
-}
-
 export function getFullArticleApi(articleID) {
     return request.get('/article/' + articleID)
 }
 
 export function useGetArticles(page, size, categoryID, list) {
-    const noMore = ref(true)
+
+    const noMore = shallowRef(false)
+    provideNoMore.value = false
+
     getArticlesApi(page, size, categoryID).then(({data: response}) => {
         if (response.code === CODE_SUCCESS) {
+            noMore.value = response.data.noMore
+            provideNoMore.value = response.data.noMore
             response.data.data.forEach(item => {
                 list.push(item)
             })
             trimArticleSummary(list)
-            noMore.value = response.data.noMore
         }
     })
+
+    function getArticlesApi(page, size, categoryID) {
+        return request.get('/article/list', {
+            params: {
+                page,
+                size,
+                categoryID
+            }
+        })
+    }
+
     return noMore
 }
 
@@ -79,12 +85,12 @@ export function useInfiniteScroll(threshold, callback) {
         return clientHeight
     }
 
-//获取文档完整的高度
+    //获取文档完整的高度
     function getScrollHeight() {
         return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight)
     }
 
-//获取当前滚动条的位置
+    //获取当前滚动条的位置
     function getScrollTop() {
         let scrollTop = 0;
         if (document.documentElement && document.documentElement.scrollTop) {
@@ -98,7 +104,7 @@ export function useInfiniteScroll(threshold, callback) {
 
 /*****************骨架屏功能******************/
 
-export function useSkeletonAndEmpty(articleList, noMore) {
+export function useSkeletonAndEmpty(articleList) {
 
     const hasResponse = shallowRef(false)
     const loading = shallowRef(true)
@@ -106,11 +112,8 @@ export function useSkeletonAndEmpty(articleList, noMore) {
     const empty = shallowRef(false)
 
     watch(articleList, () => {
-        if (articleList.length === 0 && noMore.value === false) {
+        if (articleList.length === 0 && provideNoMore.value === false) {
             return
-        }
-        if (articleList.length === 0 && noMore.value === true) {
-            empty.value = true
         }
         hasResponse.value = true
         if (isLoadingTimeout.value === true) {
@@ -118,8 +121,19 @@ export function useSkeletonAndEmpty(articleList, noMore) {
         }
     })
 
+    watch(provideNoMore, () => {
+        if (articleList.length === 0 && provideNoMore.value === true) {
+            empty.value = true
+            hasResponse.value = true
+            if (isLoadingTimeout.value === true) {
+                loading.value = false
+            }
+        }
+    })
+
     function showSkeleton() {
         loading.value = true
+        empty.value = false
         isLoadingTimeout.value = false
         setTimeout(() => {
             isLoadingTimeout.value = true

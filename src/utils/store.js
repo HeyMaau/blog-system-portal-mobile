@@ -5,3 +5,5 @@ export const provideHeaderTitle = shallowRef('')
 export const provideAuthorInfo = ref({})
 
 export const provideRouterPath = shallowRef('')
+
+export const provideNoMore = shallowRef(false)
