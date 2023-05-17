@@ -21,7 +21,10 @@ import {
     CellGroup,
     Toast,
     BackTop,
-    Sticky
+    Sticky,
+    Skeleton,
+    SkeletonImage,
+    SkeletonParagraph
 } from 'vant';
 import 'vant/lib/index.css';
 
@@ -45,4 +48,6 @@ app.use(CellGroup)
 app.use(Toast)
 app.use(BackTop)
 app.use(Sticky)
-
+app.use(Skeleton)
+app.use(SkeletonImage)
+app.use(SkeletonParagraph)

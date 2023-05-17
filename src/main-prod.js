@@ -17,7 +17,10 @@ import {
     CellGroup,
     Toast,
     BackTop,
-    Sticky
+    Sticky,
+    Skeleton,
+    SkeletonImage,
+    SkeletonParagraph
 } from 'vant';
 
 import '@/assets/css/global.css'
@@ -40,4 +43,6 @@ app.use(CellGroup)
 app.use(Toast)
 app.use(BackTop)
 app.use(Sticky)
-
+app.use(Skeleton)
+app.use(SkeletonImage)
+app.use(SkeletonParagraph)

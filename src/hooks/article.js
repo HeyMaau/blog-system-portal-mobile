@@ -1,7 +1,8 @@
 import axios from "axios";
 import {API_PORTAL_PATH, ARTICLE_SUMMARY_LENGTH, CODE_SUCCESS} from "@/utils/constants";
 import {useEventListener} from '@vant/use'
-import {ref} from "vue";
+import {onMounted, ref, shallowRef, watch} from "vue";
+import {onBeforeRouteUpdate} from "vue-router";
 
 const request = axios.create({
     baseURL: API_PORTAL_PATH,
@@ -93,4 +94,51 @@ export function useInfiniteScroll(threshold, callback) {
             callback()
         }
     })
+}
+
+/*****************骨架屏功能******************/
+
+export function useSkeletonAndEmpty(articleList, noMore) {
+
+    const hasResponse = shallowRef(false)
+    const loading = shallowRef(true)
+    const isLoadingTimeout = shallowRef(false)
+    const empty = shallowRef(false)
+
+    watch(articleList, () => {
+        if (articleList.length === 0 && noMore.value === false) {
+            return
+        }
+        if (articleList.length === 0 && noMore.value === true) {
+            empty.value = true
+        }
+        hasResponse.value = true
+        if (isLoadingTimeout.value === true) {
+            loading.value = false
+        }
+    })
+
+    function showSkeleton() {
+        loading.value = true
+        isLoadingTimeout.value = false
+        setTimeout(() => {
+            isLoadingTimeout.value = true
+            if (hasResponse.value === true) {
+                loading.value = false
+            }
+        }, 500)
+    }
+
+    onMounted(() => {
+        showSkeleton()
+    })
+
+    onBeforeRouteUpdate(() => {
+        showSkeleton()
+    })
+
+    return {
+        loading,
+        empty
+    }
 }

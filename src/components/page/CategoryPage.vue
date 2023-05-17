@@ -1,17 +1,19 @@
 <template>
-  <ArticleList :articleList="articleList" v-if="articleList.length > 0"/>
-  <EmptyView class="empty-view" v-else/>
+  <SkeletonView :number="5" :row="2" v-if="loading"/>
+  <ArticleList :articleList="articleList" v-else/>
+  <EmptyView class="empty-view"/>
 </template>
 
 <script setup>
 import ArticleList from "@/components/ArticleList";
-import {useGetArticles, useInfiniteScroll} from "@/hooks/article";
+import {useGetArticles, useInfiniteScroll, useSkeletonAndEmpty} from "@/hooks/article";
 import {useRoute, onBeforeRouteUpdate} from 'vue-router'
 import {shallowReactive, onBeforeMount} from "vue";
 import {INFINITE_SCROLL_THRESHOLD} from "@/utils/constants";
 import {setCategoryName} from "@/hooks/header";
 import EmptyView from "@/components/EmptyView";
 import {provideHeaderTitle} from "@/utils/store";
+import SkeletonView from "@/components/SkeletonView";
 
 //获取文章数据
 const route = useRoute()
@@ -22,6 +24,9 @@ let noMore
 
 noMore = useGetArticles(page, size, route.params.id, articleList)
 
+//使用骨架屏
+const {loading} = useSkeletonAndEmpty(articleList, false)
+
 //获取分类名称并设置
 setCategoryName(route.params.id);
 
@@ -30,6 +35,7 @@ onBeforeRouteUpdate((to) => {
   articleList.length = 0
   useGetArticles(page, size, to.params.id, articleList)
   setCategoryName(to.params.id)
+  // showSkeleton()
 })
 
 //无限滚动
