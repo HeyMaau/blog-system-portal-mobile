@@ -176,4 +176,8 @@ function jump2HomePage() {
   font-weight: bold;
 }
 
+:deep(.van-overlay) {
+  background: none;
+}
+
 </style>
