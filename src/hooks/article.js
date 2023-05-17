@@ -61,39 +61,39 @@ export function initCollapseState(list, state) {
 
 /*****************无限滚动功能******************/
 
-//获取当前可视范围的高度
-function getClientHeight() {
-    let clientHeight;
-    if (document.body.clientHeight && document.documentElement.clientHeight) {
-        clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight)
-    } else {
-        clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight)
-    }
-    return clientHeight
-}
-
-//获取文档完整的高度
-function getScrollHeight() {
-    return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight)
-}
-
-//获取当前滚动条的位置
-function getScrollTop() {
-    let scrollTop = 0;
-    if (document.documentElement && document.documentElement.scrollTop) {
-        scrollTop = document.documentElement.scrollTop
-    } else if (document.body) {
-        scrollTop = document.body.scrollTop
-    }
-    return scrollTop
-}
-
 export function useInfiniteScroll(threshold, callback) {
     useEventListener('scroll', () => {
         if (getScrollTop() + getClientHeight() + threshold >= getScrollHeight()) {
             callback()
         }
     })
+
+    //获取当前可视范围的高度
+    function getClientHeight() {
+        let clientHeight;
+        if (document.body.clientHeight && document.documentElement.clientHeight) {
+            clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight)
+        } else {
+            clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight)
+        }
+        return clientHeight
+    }
+
+//获取文档完整的高度
+    function getScrollHeight() {
+        return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight)
+    }
+
+//获取当前滚动条的位置
+    function getScrollTop() {
+        let scrollTop = 0;
+        if (document.documentElement && document.documentElement.scrollTop) {
+            scrollTop = document.documentElement.scrollTop
+        } else if (document.body) {
+            scrollTop = document.body.scrollTop
+        }
+        return scrollTop
+    }
 }
 
 /*****************骨架屏功能******************/
