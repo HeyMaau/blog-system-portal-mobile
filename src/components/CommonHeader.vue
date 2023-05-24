@@ -106,6 +106,10 @@ function jump2HomePage() {
   margin-left: 20px;
 }
 
+:deep(.logo img) {
+  width: auto;
+}
+
 .menu-icon {
   position: absolute;
   padding: 20px;
