@@ -56,11 +56,7 @@
 import {onBeforeMount, shallowRef, watch} from "vue";
 import {provideAuthorInfo, provideHeaderTitle} from "@/utils/store";
 import {API_PORTAL_IMAGE_PATH} from "@/utils/constants";
-
-const avatarUrl = shallowRef(`${API_PORTAL_IMAGE_PATH}/${provideAuthorInfo.value.avatar}`)
-watch(provideAuthorInfo, () => {
-  avatarUrl.value = `${API_PORTAL_IMAGE_PATH}/${provideAuthorInfo.value.avatar}`
-})
+import {useGetAuthorInfo} from "@/hooks/author";
 
 //设置顶部导航栏标题
 provideHeaderTitle.value = '关于我'
@@ -68,6 +64,14 @@ provideHeaderTitle.value = '关于我'
 //设置网页title
 onBeforeMount(() => {
   document.title = '关于我 - 卧卷'
+})
+
+//获取作者信息
+useGetAuthorInfo()
+
+const avatarUrl = shallowRef(`${API_PORTAL_IMAGE_PATH}/${provideAuthorInfo.value.avatar}`)
+watch(provideAuthorInfo, () => {
+  avatarUrl.value = `${API_PORTAL_IMAGE_PATH}/${provideAuthorInfo.value.avatar}`
 })
 
 </script>

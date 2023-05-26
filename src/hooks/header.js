@@ -15,7 +15,7 @@ export const showAvatar = shallowRef(true)
 export const showMenu = shallowRef(true)
 
 export function updateHeaderState(path) {
-    if (path === '/') {
+    if (path === '/' || path.startsWith('/error')) {
         showAvatar.value = true
         showMenu.value = true
     } else if (path.startsWith('/search')) {

@@ -1,13 +1,21 @@
 import axios from "axios";
-import {API_PORTAL_PATH, ARTICLE_SUMMARY_LENGTH, CODE_SUCCESS} from "@/utils/constants";
+import {API_PORTAL_PATH, ARTICLE_SUMMARY_LENGTH, CODE_IP_BLOCKED, CODE_SUCCESS} from "@/utils/constants";
 import {useEventListener} from '@vant/use'
 import {onMounted, shallowRef, watch} from "vue";
 import {onBeforeRouteUpdate} from "vue-router";
 import {provideNoMore} from "@/utils/store";
+import router from "@/router";
 
 const request = axios.create({
     baseURL: API_PORTAL_PATH,
     timeout: 5000
+})
+
+request.interceptors.response.use(res => {
+    if (res.data.code === CODE_IP_BLOCKED) {
+        router.push('/error')
+    }
+    return res
 })
 
 export function getCategoriesApi() {

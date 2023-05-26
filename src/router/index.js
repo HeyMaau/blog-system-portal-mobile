@@ -9,6 +9,7 @@ import ArticleDetailPage from "@/components/page/ArticleDetailPage"
 import HomePage from '@/components/page/HomePage'
 import SearchPage from '@/components/page/SearchPage'
 import AboutMePage from '@/components/page/AboutMePage'
+import ErrorPage from '@/components/page/ErrorPage'
 import {provideRouterPath} from "@/utils/store";
 
 const routes = [
@@ -20,7 +21,8 @@ const routes = [
             {path: 'category/:id', component: CategoryPage},
             {path: 'article/:id', component: ArticleDetailPage},
             {path: 'search', component: SearchPage},
-            {path: 'about', component: AboutMePage}
+            {path: 'about', component: AboutMePage},
+            {path: 'error', component: ErrorPage}
         ]
     }
 ]
