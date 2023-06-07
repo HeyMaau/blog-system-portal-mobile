@@ -5,6 +5,7 @@ import {onMounted, shallowRef, watch} from "vue";
 import {onBeforeRouteUpdate} from "vue-router";
 import {provideNoMore} from "@/utils/store";
 import router from "@/router";
+import {convertPX2VW} from "@/utils/size-util";
 
 const request = axios.create({
     baseURL: API_PORTAL_PATH,
@@ -162,5 +163,15 @@ export function useSkeletonAndEmpty(articleList) {
     return {
         loading,
         empty
+    }
+}
+
+/*****************转换富文本尺寸功能******************/
+export function useConvertSize(dom) {
+    let children = dom.querySelectorAll('span');
+    for (let child of children) {
+        if (child.style.fontSize !== '') {
+            child.style.fontSize = convertPX2VW(child.style.fontSize)
+        }
     }
 }

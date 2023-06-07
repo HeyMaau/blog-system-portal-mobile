@@ -13,14 +13,13 @@
 </template>
 
 <script setup>
-import {getFullArticleApi} from "@/hooks/article";
+import {getFullArticleApi, useConvertSize} from "@/hooks/article";
 import {useRoute} from "vue-router";
 import {shallowRef, computed, nextTick} from "vue";
 import {API_PORTAL_IMAGE_PATH} from "@/utils/constants";
 import AuthorInfoBanner from "@/components/AuthorInfoBanner";
 import {provideHeaderTitle} from "@/utils/store";
 import ArticleComment from "@/components/comment/ArticleComment";
-import {convertPX2VW} from "@/utils/size-util";
 
 //获取文章数据
 const route = useRoute()
@@ -38,7 +37,7 @@ getFullArticleApi(route.params.id).then(({data: response}) => {
   authorSign.value = response.data.user.sign
   nextTick(() => {
     document.title = `${article.value.title} - 卧卷`
-    convertStyle()
+    useConvertSize(document.getElementById('articleContent'))
   })
 })
 const updateTime = computed(() => {
@@ -48,16 +47,6 @@ const updateTime = computed(() => {
   }
   return ''
 })
-
-function convertStyle() {
-  let parent = document.getElementById('articleContent');
-  let children = parent.querySelectorAll('span');
-  for (let child of children) {
-    if (child.style.fontSize !== '') {
-      child.style.fontSize = convertPX2VW(child.style.fontSize)
-    }
-  }
-}
 
 </script>
 

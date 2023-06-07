@@ -15,16 +15,16 @@
       </div>
       <div v-else>
         <van-image :src="`${API_PORTAL_IMAGE_PATH}/${item.cover}`" width="100%" fit="cover"/>
-        <div class="full-article-content" v-html="fullArticle.content"></div>
+        <div class="full-article-content" v-html="fullArticle.content" :id="`fullArticle_${item.id}`"></div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import {defineProps, ref, shallowRef, watch} from "vue";
+import {defineProps, nextTick, ref, shallowRef, watch} from "vue";
 import {API_PORTAL_IMAGE_PATH} from "@/utils/constants";
-import {getFullArticleApi, initCollapseState} from "@/hooks/article";
+import {getFullArticleApi, initCollapseState, useConvertSize} from "@/hooks/article";
 
 const props = defineProps({
   articleList: Array
@@ -43,6 +43,9 @@ function showFullArticle(articleID) {
   getFullArticleApi(articleID).then(({data: response}) => {
     fullArticle.value = response.data
     collapseState.value[articleID] = false
+    nextTick(() => {
+      useConvertSize(document.getElementById(`fullArticle_${articleID}`))
+    })
   })
 }
 
@@ -81,21 +84,6 @@ function showFullArticle(articleID) {
   color: #333333;
 }
 
-:deep(.full-article-content h1) {
-  font-size: 43px;
-  font-weight: 600;
-}
-
-:deep(.full-article-content h2) {
-  font-size: 41px;
-  font-weight: 600;
-}
-
-:deep(.full-article-content h3) {
-  font-size: 39px;
-  font-weight: 600;
-}
-
 .button-full-article {
   padding-left: 30px;
   border: none;
@@ -108,6 +96,21 @@ function showFullArticle(articleID) {
 
 :deep(.full-article-content img) {
   max-width: 100%;
+}
+
+:deep(blockquote) {
+  border-left: 6px solid #D3D3D3;
+  color: #646464;
+  padding-left: 1em;
+  margin: 1.4em 0;
+}
+
+:deep(.full-article-content p) {
+  margin-top: 25px;
+}
+
+:deep(.full-article-content a) {
+  border-bottom: 2px solid #808080;
 }
 
 .article-content-summary-container {
