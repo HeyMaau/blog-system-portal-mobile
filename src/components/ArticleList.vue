@@ -33,9 +33,8 @@ const props = defineProps({
 //监听数组的变化，创建文章折叠状态管理器
 const collapseState = ref({})
 watch(() => props.articleList, () => {
-  //清空状态管理器
   initCollapseState(props.articleList, collapseState.value)
-}, {deep: true})
+}, {deep: true, immediate: true})
 
 //展示全文
 const fullArticle = shallowRef({})
