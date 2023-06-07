@@ -6,7 +6,7 @@
       <div class="article-update-time">编辑于 {{ updateTime }}</div>
       <AuthorInfoBanner :avatarSrc="avatarUrl" :name="authorName"
                         :signature="authorSign" class="author-info-banner"/>
-      <div class="article-content" v-html="article.content"></div>
+      <div class="article-content" v-html="article.content" id="articleContent"></div>
     </div>
   </div>
   <ArticleComment class="article-comment"/>
@@ -20,6 +20,7 @@ import {API_PORTAL_IMAGE_PATH} from "@/utils/constants";
 import AuthorInfoBanner from "@/components/AuthorInfoBanner";
 import {provideHeaderTitle} from "@/utils/store";
 import ArticleComment from "@/components/comment/ArticleComment";
+import {convertPX2VW} from "@/utils/size-util";
 
 //获取文章数据
 const route = useRoute()
@@ -37,6 +38,7 @@ getFullArticleApi(route.params.id).then(({data: response}) => {
   authorSign.value = response.data.user.sign
   nextTick(() => {
     document.title = `${article.value.title} - 卧卷`
+    convertStyle()
   })
 })
 const updateTime = computed(() => {
@@ -46,6 +48,16 @@ const updateTime = computed(() => {
   }
   return ''
 })
+
+function convertStyle() {
+  let parent = document.getElementById('articleContent');
+  let children = parent.querySelectorAll('span');
+  for (let child of children) {
+    if (child.style.fontSize !== '') {
+      child.style.fontSize = convertPX2VW(child.style.fontSize)
+    }
+  }
+}
 
 </script>
 
@@ -91,25 +103,19 @@ const updateTime = computed(() => {
   max-width: 100%;
 }
 
-:deep(.article-content h1) {
-  font-size: 1.3em;
-  line-height: 1.5;
-  font-weight: 700;
-  margin: 20px 0;
+:deep(blockquote) {
+  border-left: 6px solid #D3D3D3;
+  color: #646464;
+  padding-left: 1em;
+  margin: 1.4em 0;
 }
 
-:deep(.article-content h2) {
-  font-size: 1.2em;
-  line-height: 1.5;
-  font-weight: 700;
-  margin: 20px 0;
+:deep(.article-content p) {
+  margin-top: 25px;
 }
 
-:deep(.article-content h3) {
-  font-size: 1.1em;
-  line-height: 1.5;
-  font-weight: 700;
-  margin: 20px 0;
+:deep(.article-content a) {
+  border-bottom: 2px solid #808080;
 }
 
 .article-comment {
