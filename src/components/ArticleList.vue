@@ -7,7 +7,7 @@
       <div class="short-article-container" v-if="collapseState[item.id]">
         <van-image :src="`${API_PORTAL_IMAGE_PATH}/${item.cover}`" width="100%" height="150px" fit="cover"/>
         <div class="article-content-summary-container">
-          <span>{{ item.content }}</span>
+          <span class="van-multi-ellipsis--l2">{{ item.content }}</span>
           <button class="button-full-article" @click="showFullArticle(item.id)">阅读全文
             <van-icon name="arrow-down"/>
           </button>
@@ -97,14 +97,21 @@ function showFullArticle(articleID) {
 }
 
 .button-full-article {
-  margin-left: 10px;
+  padding-left: 30px;
   border: none;
-  background: white;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 1) 10%);
   color: #175199;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 :deep(.full-article-content img) {
   max-width: 100%;
+}
+
+.article-content-summary-container {
+  position: relative;
 }
 
 </style>
