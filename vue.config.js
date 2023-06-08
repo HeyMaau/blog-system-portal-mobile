@@ -8,7 +8,7 @@ module.exports = defineConfig({
                 'vue': 'Vue',
                 'vue-router': 'VueRouter',
                 'vant': 'vant',
-                'viewerjs': 'viewerjs'
+                'viewerjs': 'Viewer'
             }
         }
     },
