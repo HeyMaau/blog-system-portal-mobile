@@ -7,7 +7,8 @@ module.exports = defineConfig({
                 'axios': 'axios',
                 'vue': 'Vue',
                 'vue-router': 'VueRouter',
-                'vant': 'vant'
+                'vant': 'vant',
+                'viewerjs': 'viewerjs'
             }
         }
     },

@@ -20,6 +20,7 @@ import {API_PORTAL_IMAGE_PATH} from "@/utils/constants";
 import AuthorInfoBanner from "@/components/AuthorInfoBanner";
 import {provideHeaderTitle} from "@/utils/store";
 import ArticleComment from "@/components/comment/ArticleComment";
+import Viewer from 'viewerjs'
 
 //获取文章数据
 const route = useRoute()
@@ -38,6 +39,7 @@ getFullArticleApi(route.params.id).then(({data: response}) => {
   nextTick(() => {
     document.title = `${article.value.title} - 卧卷`
     useConvertSize(document.getElementById('articleContent'))
+    initPicViewer()
   })
 })
 const updateTime = computed(() => {
@@ -47,6 +49,20 @@ const updateTime = computed(() => {
   }
   return ''
 })
+
+function initPicViewer() {
+  // eslint-disable-next-line no-unused-vars
+  const picViewer = new Viewer(document.getElementById('articleContent'), {
+    inline: false,
+    button: false,
+    navbar: false,
+    title: false,
+    toolbar: false,
+    tooltip: false,
+    transition: false,
+    keyboard: false
+  });
+}
 
 </script>
 

@@ -25,6 +25,7 @@
 import {defineProps, nextTick, ref, shallowRef, watch} from "vue";
 import {API_PORTAL_IMAGE_PATH} from "@/utils/constants";
 import {getFullArticleApi, initCollapseState, useConvertSize} from "@/hooks/article";
+import Viewer from "viewerjs";
 
 const props = defineProps({
   articleList: Array
@@ -45,8 +46,23 @@ function showFullArticle(articleID) {
     collapseState.value[articleID] = false
     nextTick(() => {
       useConvertSize(document.getElementById(`fullArticle_${articleID}`))
+      initPicViewer(`fullArticle_${articleID}`)
     })
   })
+}
+
+function initPicViewer(domID) {
+  // eslint-disable-next-line no-unused-vars
+  const picViewer = new Viewer(document.getElementById(domID), {
+    inline: false,
+    button: false,
+    navbar: false,
+    title: false,
+    toolbar: false,
+    tooltip: false,
+    transition: false,
+    keyboard: false
+  });
 }
 
 </script>
