@@ -94,7 +94,7 @@ function jump2AboutMe() {
 
 //点击LOGO事件
 function jump2HomePage() {
-  router.push('/')
+  window.location.href = "//m.manpok.top"
 }
 
 </script>
