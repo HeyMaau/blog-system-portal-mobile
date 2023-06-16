@@ -1,16 +1,22 @@
 <template>
-  <SearchList :searchList="searchList"/>
+  <SkeletonView :number="5" :row="2" v-if="loading"/>
+  <SearchList :searchList="searchList" v-if="!loading && !empty"/>
+  <EmptyView class="empty-view" v-if="empty" message="暂无搜索结果"/>
 </template>
 
 <script setup>
+import SkeletonView from "@/components/SkeletonView"
+import EmptyView from "@/components/EmptyView"
 import {doSearchApi} from "@/hooks/search";
 import {CODE_SUCCESS} from "@/utils/constants";
-import {onBeforeMount, ref} from "vue";
+import {onBeforeMount, shallowRef} from "vue";
 import {useRoute, onBeforeRouteUpdate} from "vue-router";
 import {showFailToast} from "vant";
 import SearchList from "@/components/SearchList";
+import {useSkeletonAndEmpty2} from "@/hooks/article";
+import {provideNoMore} from "@/utils/store";
 
-const searchList = ref([])
+const searchList = shallowRef([])
 const route = useRoute()
 
 let page = 1
@@ -19,9 +25,11 @@ let size = 5
 doSearch(route.query.keyword, page, size)
 
 function doSearch(keyword, page, size) {
+  provideNoMore.value = false
   doSearchApi(keyword, page, size).then(({data: response}) => {
     if (response.code === CODE_SUCCESS) {
       searchList.value = response.data.data
+      provideNoMore.value = response.data.noMore
     } else {
       showFailToast(response.message)
     }
@@ -38,6 +46,9 @@ onBeforeRouteUpdate(to => {
 onBeforeMount(() => {
   document.title = `${route.query.keyword} | 搜索结果 - 卧卷`
 })
+
+//使用骨架屏
+const {loading, empty} = useSkeletonAndEmpty2(searchList)
 
 </script>
 

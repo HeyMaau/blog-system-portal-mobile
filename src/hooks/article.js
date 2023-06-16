@@ -113,6 +113,11 @@ export function useInfiniteScroll(threshold, callback) {
 
 /*****************骨架屏功能******************/
 
+/**
+ * 用于reactive数据结构
+ * @param articleList
+ * @returns {{loading: ShallowRef<boolean>, empty: ShallowRef<boolean>}}
+ */
 export function useSkeletonAndEmpty(articleList) {
 
     const hasResponse = shallowRef(false)
@@ -158,6 +163,64 @@ export function useSkeletonAndEmpty(articleList) {
 
     onBeforeRouteUpdate(() => {
         showSkeleton()
+    })
+
+    return {
+        loading,
+        empty
+    }
+}
+
+/**
+ * 用于ref数据结构
+ * @param searchList
+ * @returns {{loading: ShallowRef<boolean>, empty: ShallowRef<boolean>}}
+ */
+export function useSkeletonAndEmpty2(searchList) {
+
+    const hasResponse = shallowRef(false)
+    const loading = shallowRef(true)
+    const isLoadingTimeout = shallowRef(false)
+    const empty = shallowRef(false)
+
+    watch(searchList, () => {
+        if (searchList.value.length === 0 && provideNoMore.value === false) {
+            return
+        }
+        hasResponse.value = true
+        if (isLoadingTimeout.value === true) {
+            loading.value = false
+        }
+    })
+
+    watch(provideNoMore, () => {
+        if (searchList.value.length === 0 && provideNoMore.value === true) {
+            empty.value = true
+            hasResponse.value = true
+            if (isLoadingTimeout.value === true) {
+                loading.value = false
+            }
+        }
+    })
+
+    function showSkeleton2() {
+        loading.value = true
+        empty.value = false
+        isLoadingTimeout.value = false
+        setTimeout(() => {
+            isLoadingTimeout.value = true
+            if (hasResponse.value === true) {
+                loading.value = false
+            }
+        }, 500)
+    }
+
+    onMounted(() => {
+        showSkeleton2()
+    })
+
+    onBeforeRouteUpdate(() => {
+        showSkeleton2()
     })
 
     return {

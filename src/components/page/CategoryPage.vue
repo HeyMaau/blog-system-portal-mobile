@@ -1,7 +1,7 @@
 <template>
   <SkeletonView :number="5" :row="2" v-if="loading"/>
   <ArticleList :articleList="articleList" v-if="!loading && !empty"/>
-  <EmptyView class="empty-view" v-if="empty"/>
+  <EmptyView class="empty-view" v-if="empty" message="在写了在写了！！！"/>
 </template>
 
 <script setup>
