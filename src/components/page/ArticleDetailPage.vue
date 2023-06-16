@@ -124,7 +124,7 @@ function initPicViewer() {
 }
 
 .article-comment {
-  padding: 30px 32px;
+  padding: 30px 32px 150px;
   margin-top: 20px;
   background: white;
 }
