@@ -82,7 +82,6 @@ let stopMovingTime = 0
 let currentPosition = 0
 
 useEventListener('touchstart', (event) => {
-  event.preventDefault()
   if (event.touches.length === 1 || !isMoving) {
     startMovingTime = Date.now()
     emojiPageContainerRef.value.style.transition = null
@@ -110,15 +109,14 @@ useEventListener('touchmove', (event) => {
   emojiPageContainerRef.value.style.transform = `translate3d(${movingDX}px, 0, 0)`
 }, {target: emojiPageContainerRef})
 
-useEventListener('touchend', (event) => {
-  event.preventDefault()
+useEventListener('touchend', () => {
   isMoving = false
   stopMovingTime = Date.now()
   const interval = stopMovingTime - startMovingTime
-  if (interval < 300) {
+  const emojiPageWidth = emojiPageRefs.value[0].offsetWidth
+  if (interval < 300 && Math.abs(dX / emojiPageWidth) > 0.05) {
     touchMoveEmojiPage(true)
   } else {
-    const emojiPageWidth = emojiPageRefs.value[0].offsetWidth
     if (Math.abs(dX / emojiPageWidth) < 0.4) {
       touchMoveEmojiPage(false)
     } else {
