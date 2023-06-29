@@ -40,7 +40,7 @@ import {provideAuthorInfo, provideRouterPath} from "@/utils/store";
 const publicPath = process.env.BASE_URL
 
 //作者头像
-const avatarUrl = shallowRef(`${API_PORTAL_IMAGE_PATH}/${provideAuthorInfo.value.avatar}`)
+const avatarUrl = shallowRef('')
 watch(provideAuthorInfo, () => {
   avatarUrl.value = `${API_PORTAL_IMAGE_PATH}/${provideAuthorInfo.value.avatar}`
 })
