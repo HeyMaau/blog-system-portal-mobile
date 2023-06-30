@@ -2,7 +2,8 @@
   <div class="container">
     <div class="emoji-container">
       <div class="emoji-page-container" ref="emojiPageContainerRef">
-        <div class="emoji-page" ref="emojiPageRefs" v-for="(page, index) in indexList" :key="index">
+        <div class="emoji-page" v-for="(page, index) in indexList" :key="index"
+             :id="`emojiPage_${index}`">
           <ul>
             <li v-for="(item, index) in emojiList[page]" :key="index" @click="onEmojiClick(item)">{{ item }}</li>
           </ul>
@@ -53,13 +54,13 @@ function sliceEmojis() {
 sliceEmojis()
 
 const emojiPageContainerRef = ref(null)
-const emojiPageRefs = ref(null)
 
 const currentPage = shallowRef(0)
 
 function moveEmojiPage(page) {
   currentPage.value = page
-  const width = emojiPageRefs.value[0].offsetWidth
+  let emojiPageDom = document.getElementById("emojiPage_0");
+  const width = emojiPageDom.offsetWidth
   let movingDistance = -width * currentPage.value
   emojiPageContainerRef.value.style.transition = 'transform 400ms ease'
   emojiPageContainerRef.value.style.transform = `translate3d(${movingDistance}px, 0, 0)`
@@ -67,7 +68,8 @@ function moveEmojiPage(page) {
 
 const setEmojiPageContainerWidth = () => {
   nextTick(() => {
-    emojiPageContainerRef.value.style.width = indexList.value.length * emojiPageRefs.value[0].offsetWidth + 'px'
+    let emojiPageDom = document.getElementById("emojiPage_0");
+    emojiPageContainerRef.value.style.width = indexList.value.length * emojiPageDom.offsetWidth + 'px'
   })
 }
 
@@ -87,7 +89,8 @@ useEventListener('touchstart', (event) => {
     emojiPageContainerRef.value.style.transition = null
     startX = event.touches[0].pageX
     isMoving = true
-    currentPosition = -emojiPageRefs.value[0].offsetWidth * currentPage.value
+    let emojiPageDom = document.getElementById("emojiPage_0");
+    currentPosition = -emojiPageDom.offsetWidth * currentPage.value
   }
 }, {target: emojiPageContainerRef})
 
@@ -113,7 +116,8 @@ useEventListener('touchend', () => {
   isMoving = false
   stopMovingTime = Date.now()
   const interval = stopMovingTime - startMovingTime
-  const emojiPageWidth = emojiPageRefs.value[0].offsetWidth
+  let emojiPageDom = document.getElementById("emojiPage_0");
+  const emojiPageWidth = emojiPageDom.offsetWidth
   if (interval < 300 && Math.abs(dX / emojiPageWidth) > 0.05) {
     touchMoveEmojiPage(true)
   } else {
@@ -137,7 +141,8 @@ function touchMoveEmojiPage(canMove) {
       }
     }
   }
-  let emojiPageWidth = emojiPageRefs.value[0].offsetWidth
+  let emojiPageDom = document.getElementById("emojiPage_0");
+  let emojiPageWidth = emojiPageDom.offsetWidth
   let movingDistance = -emojiPageWidth * currentPage.value
   emojiPageContainerRef.value.style.transition = 'transform 400ms ease'
   emojiPageContainerRef.value.style.transform = `translate3d(${movingDistance}px, 0, 0)`
