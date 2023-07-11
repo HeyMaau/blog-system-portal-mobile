@@ -26,6 +26,7 @@ import {defineProps, nextTick, ref, shallowRef, watch} from "vue";
 import {API_PORTAL_IMAGE_PATH} from "@/utils/constants";
 import {getFullArticleApi, initCollapseState, useConvertSize} from "@/hooks/article";
 import Viewer from "viewerjs";
+import hljs from 'highlight.js'
 
 const props = defineProps({
   articleList: Array
@@ -47,6 +48,7 @@ function showFullArticle(articleID) {
     nextTick(() => {
       useConvertSize(document.getElementById(`fullArticle_${articleID}`))
       initPicViewer(`fullArticle_${articleID}`)
+      hljs.highlightAll()
     })
   })
 }
@@ -110,6 +112,11 @@ function initPicViewer(domID) {
   right: 0;
 }
 
+.full-article-content {
+  font-size: 30px;
+  line-height: 1.2;
+}
+
 :deep(.full-article-content img) {
   max-width: 100%;
 }
@@ -131,6 +138,11 @@ function initPicViewer(domID) {
 
 .article-content-summary-container {
   position: relative;
+}
+
+:deep(.hljs) {
+  background: #F6F6F6;
+  padding: 20px;
 }
 
 </style>

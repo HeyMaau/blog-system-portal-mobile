@@ -100,10 +100,8 @@ function initPicViewer() {
 }
 
 .article-content {
-  color: #121212;
   font-size: 30px;
-  line-height: 1.6;
-  margin-top: 30px;
+  line-height: 1.2;
 }
 
 :deep(.article-content img) {
