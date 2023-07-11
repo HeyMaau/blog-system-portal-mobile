@@ -21,6 +21,7 @@ import AuthorInfoBanner from "@/components/AuthorInfoBanner";
 import {provideHeaderTitle} from "@/utils/store";
 import ArticleComment from "@/components/comment/ArticleComment";
 import Viewer from 'viewerjs'
+import hljs from 'highlight.js'
 
 //获取文章数据
 const route = useRoute()
@@ -40,6 +41,7 @@ getFullArticleApi(route.params.id).then(({data: response}) => {
     document.title = `${article.value.title} - 卧卷`
     useConvertSize(document.getElementById('articleContent'))
     initPicViewer()
+    hljs.highlightAll()
   })
 })
 const updateTime = computed(() => {
@@ -127,6 +129,11 @@ function initPicViewer() {
   padding: 30px 32px 150px;
   margin-top: 20px;
   background: white;
+}
+
+:deep(.hljs) {
+  background: #F6F6F6;
+  padding: 20px;
 }
 
 </style>
