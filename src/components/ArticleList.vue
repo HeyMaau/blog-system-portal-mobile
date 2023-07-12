@@ -15,14 +15,14 @@
       </div>
       <div v-else>
         <van-image :src="`${API_PORTAL_IMAGE_PATH}/${item.cover}`" width="100%" fit="cover"/>
-        <div class="full-article-content" v-html="fullArticle.content" :id="`fullArticle_${item.id}`"></div>
+        <div class="full-article-content" v-html="fullArticleContent[item.id]" :id="`fullArticle_${item.id}`"></div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import {defineProps, nextTick, ref, shallowRef, watch} from "vue";
+import {defineProps, nextTick, ref, watch, shallowReactive} from "vue";
 import {API_PORTAL_IMAGE_PATH} from "@/utils/constants";
 import {getFullArticleApi, initCollapseState, useConvertSize} from "@/hooks/article";
 import Viewer from "viewerjs";
@@ -39,11 +39,11 @@ watch(() => props.articleList, () => {
 }, {deep: true, immediate: true})
 
 //展示全文
-const fullArticle = shallowRef({})
+const fullArticleContent = shallowReactive({})
 
 function showFullArticle(articleID) {
   getFullArticleApi(articleID).then(({data: response}) => {
-    fullArticle.value = response.data
+    Reflect.set(fullArticleContent, articleID, response.data.content)
     collapseState.value[articleID] = false
     nextTick(() => {
       useConvertSize(document.getElementById(`fullArticle_${articleID}`))
