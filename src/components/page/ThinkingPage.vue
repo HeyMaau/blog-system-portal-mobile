@@ -1,6 +1,9 @@
 <template>
-  <ThinkingList :thinkingList="thinkingList" class="thinking-list"/>
+  <SkeletonView4Thinking class="thinking-skeleton-view" :number="4" v-if="loading"/>
+  <EmptyView class="empty-view" v-if="empty" message="在写了在写了！！！"/>
+  <ThinkingList :thinkingList="thinkingList" class="thinking-list" v-if="!loading && !empty"/>
   <van-pagination v-model="currentPage" :total-items="total" :show-page-size="3" :items-per-page="currentSize"
+                  v-if="!loading && !empty"
                   force-ellipses @change="handlePageChange">
     <template #prev-text>
       <van-icon name="arrow-left"/>
@@ -17,6 +20,8 @@ import {onBeforeMount, shallowRef} from "vue";
 import ThinkingList from "@/components/ThinkingList";
 import {getThinkingListApi, splitImageStr} from "@/hooks/thinking";
 import {CODE_SUCCESS} from "@/utils/constants";
+import SkeletonView4Thinking from "@/components/SkeletonView4Thinking";
+import {useSkeletonAndEmpty2} from "@/hooks/article";
 
 provideHeaderTitle.value = '想法'
 
@@ -54,12 +59,18 @@ function handlePageChange(page) {
   window.scrollTo(0, 0)
 }
 
+const {loading, empty} = useSkeletonAndEmpty2(thinkingList)
+
 </script>
 
 <style scoped>
 
 .thinking-list {
   background-color: white;
+}
+
+.thinking-skeleton-view {
+  width: 100%;
 }
 
 </style>
