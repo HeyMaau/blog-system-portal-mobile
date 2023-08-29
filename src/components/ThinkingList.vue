@@ -15,27 +15,71 @@
         <div class="thinking-content">{{ item.content }}</div>
       </div>
       <div class="thinking-update-time">发布于 {{ item.updateTime }}</div>
+      <div class="thinking-operating-area">
+        <div class="thinking-add-comment-button" @click="commentListState[item.id] = !commentListState[item.id]">
+          <van-icon name="chat-o"/>
+          <span class="thinking-operating-text">{{
+              commentTotalList[item.id] === 0 ? '评论' : commentTotalList[item.id]
+            }}</span>
+        </div>
+      </div>
+      <ThinkingComment :id="item.id" v-show="commentListState[item.id]" @onCommentUpdate="handleCommentUpdate"/>
     </div>
   </div>
 </template>
 
 <script setup>
-import {defineProps} from 'vue'
+import {defineProps, shallowReactive, watch} from 'vue'
 import ThinkingPictureList from "@/components/ThinkingPictureList";
 import {API_PORTAL_IMAGE_PATH} from "@/utils/constants";
+import ThinkingComment from "@/components/comment/ThinkingComment";
 
-defineProps({
+const props = defineProps({
   thinkingList: Array
 })
 
 const baseImageUrl = API_PORTAL_IMAGE_PATH
 
+const commentListState = shallowReactive({})
+
+function initCommentListState() {
+  props.thinkingList.forEach(value => {
+    commentListState[value.id] = false
+  })
+}
+
+watch(props, newValue => {
+  console.log(newValue.thinkingList)
+  if (newValue.thinkingList.length !== 0) {
+    initCommentListState()
+  }
+})
+
+let commentTotalList = shallowReactive({})
+
+function handleCommentUpdate(id, total) {
+  commentTotalList[id] = total
+}
+
 </script>
 
 <style scoped>
 
+.thinking-list-container {
+  position: relative;
+}
+
 .thinking-list-item-container {
-  padding: 31px;
+  padding: 15px 31px;
+}
+
+.thinking-list-item-container::after {
+  content: "";
+  border-bottom: 3px solid #F6F6F6;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 32px;
 }
 
 .author-info-container {
@@ -91,6 +135,23 @@ const baseImageUrl = API_PORTAL_IMAGE_PATH
   font-size: 27px;
   color: #8590a6;
   margin-top: 20px;
+}
+
+.thinking-operating-area {
+  display: flex;
+  padding: 15px 0;
+}
+
+.thinking-add-comment-button {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  gap: 0 5px;
+  color: #8590a6;
+}
+
+.thinking-operating-text {
+  font-size: 27px;
 }
 
 </style>

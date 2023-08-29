@@ -7,3 +7,6 @@ export const INFINITE_SCROLL_THRESHOLD = 50
 export const EMOJI_NUM_PER_PAGE = 44
 export const KEY_CATEGORY_LIST = 'category_list'
 export const VIEWPORT_WIDTH = 750
+
+export const COMMENT_TYPE_ARTICLE = '0'
+export const COMMENT_TYPE_THINKING = '1'

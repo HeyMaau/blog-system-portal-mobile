@@ -1,11 +1,12 @@
 <template>
   <div>
-    <PublishComment :parentInfo="parentInfo" @publishSuccess="getComments(page, size)" type="0"/>
+    <PublishComment :parentInfo="parentInfo" @publishSuccess="getComments(page, size)" :thinkingID="id" type="1"/>
     <div class="comment-list-container" v-if="commentList.length > 0">
       <div class="total-comment">{{ commentList.length }}条评论</div>
       <div class="comment-item-list-container">
         <CommentItem v-for="item in commentList" :key="item.id" :comment="item"
-                     type="0"
+                     type="1"
+                     :thinkingID="id"
                      @replySuccess="getComments(page, size)"
                      :parentInfo="{parentCommentId: item.id, replyCommentId: null, replyUserName: null}"/>
       </div>
@@ -14,14 +15,16 @@
 </template>
 
 <script setup>
-import {CODE_SUCCESS, COMMENT_TYPE_ARTICLE} from "@/utils/constants";
+import {CODE_SUCCESS, COMMENT_TYPE_THINKING} from "@/utils/constants";
 import PublishComment from "./PublishComment";
 import CommentItem from "./CommentItem";
-import {shallowRef, shallowReactive} from "vue";
+import {shallowRef, shallowReactive, defineProps, defineEmits} from "vue";
 import {showFailToast} from "vant";
 import {getArticleCommentsApi} from "@/hooks/comment";
-import {useRoute} from "vue-router";
 
+const props = defineProps({
+  id: String
+})
 
 const page = 1
 const size = 10
@@ -33,14 +36,15 @@ const parentInfo = shallowReactive({
   replyUserName: null
 })
 
-
-const route = useRoute()
+// eslint-disable-next-line
+const emits = defineEmits(['onCommentUpdate'])
 
 async function getComments(page, size) {
-  const {data: response} = await getArticleCommentsApi(route.params.id, COMMENT_TYPE_ARTICLE, page, size)
+  const {data: response} = await getArticleCommentsApi(props.id, COMMENT_TYPE_THINKING, page, size)
   if (response.code === CODE_SUCCESS) {
     commentList.value = response.data.data
     noMore.value = response.data.noMore
+    emits('onCommentUpdate', props.id, response.data.total)
   } else {
     showFailToast(response.message)
   }

@@ -30,8 +30,12 @@
         </div>
       </div>
       <PublishComment v-show="showPublishComment" class="publish-comment"
+                      :type="type"
+                      :thinkingID="thinkingID"
                       :parentInfo="parentInfo" @publishSuccess="onPublishCommentSuccess"/>
       <CommentItem v-for="child in comment.children" :key="child.id" :comment="child"
+                   :thinkingID="thinkingID"
+                   :type="type"
                    class="child-comment-item-container"
                    @childrenReplySuccess="onChildrenReplySuccess"
                    :parentInfo="{parentCommentId: parentInfo.parentCommentId, replyCommentId: child.id, replyUserName: child.userName}"/>
@@ -46,7 +50,9 @@ import {API_PORTAL_IMAGE_PATH} from "@/utils/constants";
 
 const props = defineProps({
   comment: Object,
-  parentInfo: Object
+  parentInfo: Object,
+  thinkingID: String,
+  type: String
 })
 
 const avatarUrl = `${API_PORTAL_IMAGE_PATH}/comment/${props.comment.userAvatar}`

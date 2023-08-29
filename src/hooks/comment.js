@@ -10,8 +10,8 @@ export function publishCommentApi(comment) {
     return request.post('/comment', comment)
 }
 
-export function getArticleCommentsApi(articleID, page, size) {
-    return request.get('/comment/list/' + articleID, {
+export function getArticleCommentsApi(articleID, type, page, size) {
+    return request.get(`/comment/list/${type}/${articleID}`, {
         params: {
             page,
             size

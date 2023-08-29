@@ -80,20 +80,23 @@ function showEmojiPanel() {
 
 //发表评论相关
 const props = defineProps({
-  parentInfo: Object
+  parentInfo: Object,
+  type: String,
+  thinkingID: String
 });
 
 const route = useRoute()
 
 const comment = shallowReactive({
   content: '',
-  articleId: route.params.id,
+  articleId: props.thinkingID === undefined ? route.params.id : props.thinkingID,
   parentCommentId: null,
   replyCommentId: null,
   replyUserName: null,
   userAvatar: '',
   userEmail: '',
-  userName: ''
+  userName: '',
+  type: props.type
 })
 
 const emit = defineEmits(['publishSuccess'])
