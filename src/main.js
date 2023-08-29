@@ -26,7 +26,8 @@ import {
     Sticky,
     Skeleton,
     SkeletonImage,
-    SkeletonParagraph
+    SkeletonParagraph,
+    Pagination
 } from 'vant';
 import 'vant/lib/index.css';
 
@@ -53,3 +54,4 @@ app.use(Sticky)
 app.use(Skeleton)
 app.use(SkeletonImage)
 app.use(SkeletonParagraph)
+app.use(Pagination)

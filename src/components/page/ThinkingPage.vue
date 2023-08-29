@@ -1,5 +1,14 @@
 <template>
   <ThinkingList :thinkingList="thinkingList" class="thinking-list"/>
+  <van-pagination v-model="currentPage" :total-items="total" :show-page-size="3" :items-per-page="currentSize"
+                  force-ellipses @change="handlePageChange">
+    <template #prev-text>
+      <van-icon name="arrow-left"/>
+    </template>
+    <template #next-text>
+      <van-icon name="arrow"/>
+    </template>
+  </van-pagination>
 </template>
 
 <script setup>
@@ -18,16 +27,15 @@ onBeforeMount(() => {
 })
 
 //获取想法数据
-let currentPage = 1
-let currentSize = 5
-// eslint-disable-next-line no-unused-vars
-let total = 0
+let currentPage = shallowRef(1)
+let currentSize = shallowRef(5)
+let total = shallowRef(0)
 const thinkingList = shallowRef([])
 
 getThinkingList()
 
 function getThinkingList() {
-  getThinkingListApi(currentPage, currentSize).then(({data: response}) => {
+  getThinkingListApi(currentPage.value, currentSize.value).then(({data: response}) => {
     if (response.code === CODE_SUCCESS) {
       response.data.data.forEach(item => {
         if (item.images !== null && item.images.length !== 0) {
@@ -38,6 +46,12 @@ function getThinkingList() {
       total = response.data.total
     }
   })
+}
+
+function handlePageChange(page) {
+  currentPage.value = page
+  getThinkingList()
+  window.scrollTo(0, 0)
 }
 
 </script>

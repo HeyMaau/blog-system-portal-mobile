@@ -49,7 +49,6 @@ function initCommentListState() {
 }
 
 watch(props, newValue => {
-  console.log(newValue.thinkingList)
   if (newValue.thinkingList.length !== 0) {
     initCommentListState()
   }
@@ -73,7 +72,7 @@ function handleCommentUpdate(id, total) {
   padding: 15px 31px;
 }
 
-.thinking-list-item-container::after {
+.thinking-list-item-container:not(:last-child)::after {
   content: "";
   border-bottom: 3px solid #F6F6F6;
   position: absolute;
