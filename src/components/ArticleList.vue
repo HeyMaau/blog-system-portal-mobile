@@ -1,8 +1,14 @@
 <template>
   <div class="container" v-for="item in articleList" :key="item.id">
-    <router-link :to="`/article/${item.id}`" class="article-title">
-      {{ item.title }}
-    </router-link>
+    <div class="article-title-tag-container">
+      <van-tag plain :type="getTagType(item.category.name)" size="medium" class="article-tag">{{
+          item.category.name
+        }}
+      </van-tag>
+      <router-link :to="`/article/${item.id}`" class="article-title">
+        {{ item.title }}
+      </router-link>
+    </div>
     <div class="rich-content-container">
       <div class="short-article-container" v-if="collapseState[item.id]">
         <van-image :src="`${API_PORTAL_IMAGE_PATH}/${item.cover}`" width="100%" height="150px" fit="cover"/>
@@ -65,6 +71,22 @@ function initPicViewer(domID) {
     transition: false,
     keyboard: false
   });
+}
+
+//选择标签的样式
+function getTagType(name) {
+  let type
+  switch (name) {
+    case 'Android':
+      type = 'success'
+      break
+    case 'Java':
+      type = 'warning'
+      break
+    default:
+      type = 'primary'
+  }
+  return type
 }
 
 </script>
@@ -143,6 +165,15 @@ function initPicViewer(domID) {
 :deep(.hljs) {
   background: #F6F6F6;
   padding: 20px;
+}
+
+.article-title-tag-container {
+  width: 100%;
+}
+
+.article-tag {
+  margin-right: 15px;
+  transform: translate(0, -22%);
 }
 
 </style>

@@ -29,7 +29,8 @@ import {
     SkeletonParagraph,
     SkeletonAvatar,
     SkeletonTitle,
-    Pagination
+    Pagination,
+    Tag
 } from 'vant';
 import 'vant/lib/index.css';
 
@@ -59,3 +60,4 @@ app.use(SkeletonParagraph)
 app.use(SkeletonAvatar)
 app.use(SkeletonTitle)
 app.use(Pagination)
+app.use(Tag)
