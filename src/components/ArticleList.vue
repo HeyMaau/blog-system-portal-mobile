@@ -1,7 +1,7 @@
 <template>
   <div class="container" v-for="item in articleList" :key="item.id">
     <div class="article-title-tag-container">
-      <van-tag plain :type="getTagType(item.category.name)" size="medium" class="article-tag">{{
+      <van-tag :color="item.category.tagColor" text-color="#ffffff" size="medium" class="article-tag">{{
           item.category.name
         }}
       </van-tag>
@@ -71,22 +71,6 @@ function initPicViewer(domID) {
     transition: false,
     keyboard: false
   });
-}
-
-//选择标签的样式
-function getTagType(name) {
-  let type
-  switch (name) {
-    case 'Android':
-      type = 'success'
-      break
-    case 'Java':
-      type = 'warning'
-      break
-    default:
-      type = 'primary'
-  }
-  return type
 }
 
 </script>
