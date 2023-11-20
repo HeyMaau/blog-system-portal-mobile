@@ -27,9 +27,8 @@ defineProps({
 
 .thinking-pictures-container {
   display: flex;
-  justify-content: space-between;
   flex-wrap: wrap;
-  gap: 15px 0;
+  gap: 15px 10px;
 }
 
 .thinking-pictures-item {

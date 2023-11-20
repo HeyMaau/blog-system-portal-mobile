@@ -73,7 +73,7 @@ defineProps({
 
 .skeleton-view-picture-list {
   display: flex;
-  justify-content: space-between;
+  gap: 0 10px;
   margin-bottom: 20px;
 }
 
