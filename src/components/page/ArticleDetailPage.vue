@@ -6,7 +6,7 @@
       <div class="article-update-time">编辑于 {{ updateTime }}</div>
       <AuthorInfoBanner :avatarSrc="avatarUrl" :name="authorName"
                         :signature="authorSign" class="author-info-banner"/>
-      <div class="article-content" v-html="article.content" id="articleContent"></div>
+      <div class="full-article-content" v-html="article.content" id="articleContent"></div>
     </div>
   </div>
   <ArticleComment class="article-comment"/>
@@ -68,6 +68,7 @@ function initPicViewer() {
 
 </script>
 
+<style src="@/assets/css/article.css" scoped/>
 <style scoped>
 
 .container {
@@ -99,39 +100,10 @@ function initPicViewer() {
   border-top-color: rgba(211, 211, 211, 0.5);
 }
 
-.article-content {
-  font-size: 30px;
-  line-height: 1.2;
-}
-
-:deep(.article-content img) {
-  max-width: 100%;
-}
-
-:deep(blockquote) {
-  border-left: 6px solid #D3D3D3;
-  color: #646464;
-  padding-left: 1em;
-  margin: 1.4em 0;
-}
-
-:deep(.article-content p) {
-  margin-top: 25px;
-}
-
-:deep(.article-content a) {
-  border-bottom: 2px solid #808080;
-}
-
 .article-comment {
   padding: 30px 32px 150px;
   margin-top: 20px;
   background: white;
-}
-
-:deep(.hljs) {
-  background: #F6F6F6;
-  padding: 20px;
 }
 
 </style>

@@ -75,6 +75,7 @@ function initPicViewer(domID) {
 
 </script>
 
+<style src="@/assets/css/article.css" scoped/>
 <style scoped>
 
 .container {
@@ -118,37 +119,8 @@ function initPicViewer(domID) {
   right: 0;
 }
 
-.full-article-content {
-  font-size: 30px;
-  line-height: 1.2;
-}
-
-:deep(.full-article-content img) {
-  max-width: 100%;
-}
-
-:deep(blockquote) {
-  border-left: 6px solid #D3D3D3;
-  color: #646464;
-  padding-left: 1em;
-  margin: 1.4em 0;
-}
-
-:deep(.full-article-content p) {
-  margin-top: 25px;
-}
-
-:deep(.full-article-content a) {
-  border-bottom: 2px solid #808080;
-}
-
 .article-content-summary-container {
   position: relative;
-}
-
-:deep(.hljs) {
-  background: #F6F6F6;
-  padding: 20px;
 }
 
 .article-title-tag-container {
