@@ -1,6 +1,8 @@
 <template>
   <div class="container" v-for="item in searchList" :key="item.id">
+    <!-- eslint-disable -->
     <router-link :to="`/article/${item.id}`" class="article-title" v-html="item.title"/>
+    <!-- eslint-enable -->
     <div class="rich-content-container">
       <div class="short-article-container">
         <van-image :src="`${API_PORTAL_IMAGE_PATH}/${item.cover}`" width="100%" height="150px" fit="cover"/>

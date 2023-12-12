@@ -17,9 +17,9 @@ import {getFullArticleApi, useConvertSize} from "@/hooks/article";
 import {useRoute} from "vue-router";
 import {shallowRef, computed, nextTick} from "vue";
 import {API_PORTAL_IMAGE_PATH} from "@/utils/constants";
-import AuthorInfoBanner from "@/components/AuthorInfoBanner";
+import AuthorInfoBanner from "@/components/AuthorInfoBanner.vue";
 import {provideHeaderTitle} from "@/utils/store";
-import ArticleComment from "@/components/comment/ArticleComment";
+import ArticleComment from "@/components/comment/ArticleComment.vue";
 import Viewer from 'viewerjs'
 import hljs from 'highlight.js'
 
@@ -53,7 +53,7 @@ const updateTime = computed(() => {
 })
 
 function initPicViewer() {
-  // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
   const picViewer = new Viewer(document.getElementById('articleContent'), {
     inline: false,
     button: false,

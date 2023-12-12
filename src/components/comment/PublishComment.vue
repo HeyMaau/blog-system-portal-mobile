@@ -43,7 +43,7 @@
 
 <script setup>
 import {CODE_SUCCESS} from "@/utils/constants";
-import EmojiPanel from "./EmojiPanel";
+import EmojiPanel from "./EmojiPanel.vue";
 import {shallowReactive, defineProps, shallowRef, watchEffect, ref, onMounted, onBeforeUnmount, defineEmits} from "vue";
 import {showSuccessToast, showFailToast} from "vant";
 import {publishCommentApi} from "@/hooks/comment";

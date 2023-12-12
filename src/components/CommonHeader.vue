@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <van-image :src="`${publicPath}logo.png`" class="logo" height="70%" @click="jump2HomePage"/>
+    <van-image src="/logo.png" class="logo" height="70%" @click="jump2HomePage"/>
     <van-search v-model="value" placeholder="搜索" :class="showMenu? 'search-bar': 'search-bar-long'"
                 @search="doSearch"/>
     <van-image height="30" width="30" :src="avatarUrl" class="avatar" round v-show="showAvatar" @click="jump2AboutMe"/>
@@ -36,8 +36,6 @@ import {API_PORTAL_IMAGE_PATH, CODE_SUCCESS, KEY_CATEGORY_LIST} from "@/utils/co
 import {showAvatar, showMenu} from "@/hooks/header";
 import {useGetAuthorInfo} from "@/hooks/author";
 import {provideAuthorInfo, provideRouterPath} from "@/utils/store";
-
-const publicPath = process.env.BASE_URL
 
 //作者头像
 const avatarUrl = shallowRef('')

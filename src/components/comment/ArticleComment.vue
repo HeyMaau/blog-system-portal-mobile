@@ -15,8 +15,8 @@
 
 <script setup>
 import {CODE_SUCCESS, COMMENT_TYPE_ARTICLE} from "@/utils/constants";
-import PublishComment from "./PublishComment";
-import CommentItem from "./CommentItem";
+import PublishComment from "./PublishComment.vue";
+import CommentItem from "./CommentItem.vue";
 import {shallowRef, shallowReactive} from "vue";
 import {showFailToast} from "vant";
 import {getArticleCommentsApi} from "@/hooks/comment";

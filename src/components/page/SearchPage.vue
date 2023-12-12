@@ -5,14 +5,14 @@
 </template>
 
 <script setup>
-import SkeletonView from "@/components/SkeletonView"
-import EmptyView from "@/components/EmptyView"
+import SkeletonView from "@/components/SkeletonView.vue"
+import EmptyView from "@/components/EmptyView.vue"
 import {doSearchApi} from "@/hooks/search";
 import {CODE_SUCCESS} from "@/utils/constants";
 import {onBeforeMount, shallowRef} from "vue";
 import {useRoute, onBeforeRouteUpdate} from "vue-router";
 import {showFailToast} from "vant";
-import SearchList from "@/components/SearchList";
+import SearchList from "@/components/SearchList.vue";
 import {useSkeletonAndEmpty2} from "@/hooks/article";
 import {provideNoMore} from "@/utils/store";
 

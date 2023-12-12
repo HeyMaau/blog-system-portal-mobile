@@ -32,9 +32,9 @@
 
 <script setup>
 import {defineProps, nextTick, shallowReactive, watch} from 'vue'
-import ThinkingPictureList from "@/components/ThinkingPictureList";
+import ThinkingPictureList from "@/components/ThinkingPictureList.vue";
 import {API_PORTAL_IMAGE_PATH} from "@/utils/constants";
-import ThinkingComment from "@/components/comment/ThinkingComment";
+import ThinkingComment from "@/components/comment/ThinkingComment.vue";
 import Viewer from "viewerjs";
 
 const props = defineProps({

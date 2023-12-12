@@ -1,15 +1,15 @@
 import {createRouter, createWebHashHistory, createWebHistory} from 'vue-router'
 import {updateHeaderState} from "@/hooks/header";
 
-import MainContainer from "@/components/MainContainer";
-import FeedbackPage from "@/components/page/FeedbackPage"
-import ThinkingPage from "@/components/page/ThinkingPage"
-import CategoryPage from "@/components/page/CategoryPage"
-import ArticleDetailPage from "@/components/page/ArticleDetailPage"
-import HomePage from '@/components/page/HomePage'
-import SearchPage from '@/components/page/SearchPage'
-import AboutMePage from '@/components/page/AboutMePage'
-import ErrorPage from '@/components/page/ErrorPage'
+import MainContainer from "@/components/MainContainer.vue";
+import FeedbackPage from "@/components/page/FeedbackPage.vue"
+import ThinkingPage from "@/components/page/ThinkingPage.vue"
+import CategoryPage from "@/components/page/CategoryPage.vue"
+import ArticleDetailPage from "@/components/page/ArticleDetailPage.vue"
+import HomePage from '@/components/page/HomePage.vue'
+import SearchPage from '@/components/page/SearchPage.vue'
+import AboutMePage from '@/components/page/AboutMePage.vue'
+import ErrorPage from '@/components/page/ErrorPage.vue'
 import {provideRouterPath} from "@/utils/store";
 
 const routes = [

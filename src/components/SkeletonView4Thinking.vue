@@ -1,27 +1,28 @@
 <template>
-  <div class="skeleton-view-thinking-container" v-for="i in number" :key="i">
-    <van-skeleton>
-      <template #template>
-        <div class="skeleton-view-thinking-content-container">
-          <div class="skeleton-view-author-info">
-            <van-skeleton-avatar class="skeleton-view-author-avatar"/>
-            <div class="skeleton-view-author-name-sign">
-              <van-skeleton-paragraph row-width="40%"/>
-              <van-skeleton-paragraph row-width="40%"/>
+  <div>
+    <div class="skeleton-view-thinking-container" v-for="i in number" :key="i">
+      <van-skeleton>
+        <template #template>
+          <div class="skeleton-view-thinking-content-container">
+            <div class="skeleton-view-author-info">
+              <van-skeleton-avatar class="skeleton-view-author-avatar"/>
+              <div class="skeleton-view-author-name-sign">
+                <van-skeleton-paragraph row-width="40%"/>
+                <van-skeleton-paragraph row-width="40%"/>
+              </div>
+            </div>
+            <div class="skeleton-view-picture-list">
+              <van-skeleton-image v-for="i in 3" :key="i" class="skeleton-view-picture"/>
+            </div>
+            <div class="skeleton-view-thinking-content">
+              <van-skeleton-title/>
+              <van-skeleton-paragraph v-for="i in 2" :key="i"/>
             </div>
           </div>
-          <div class="skeleton-view-picture-list">
-            <van-skeleton-image v-for="i in 3" :key="i" class="skeleton-view-picture"/>
-          </div>
-          <div class="skeleton-view-thinking-content">
-            <van-skeleton-title/>
-            <van-skeleton-paragraph v-for="i in 2" :key="i"/>
-          </div>
-        </div>
-      </template>
-    </van-skeleton>
+        </template>
+      </van-skeleton>
+    </div>
   </div>
-
 </template>
 
 <script setup>

@@ -7,7 +7,7 @@
 </template>
 
 <script setup>
-import CommonHeader from "@/components/CommonHeader";
+import CommonHeader from "@/components/CommonHeader.vue";
 import {provideHeaderTitle} from "@/utils/store";
 
 </script>

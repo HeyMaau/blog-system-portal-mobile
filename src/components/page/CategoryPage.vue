@@ -5,15 +5,15 @@
 </template>
 
 <script setup>
-import ArticleList from "@/components/ArticleList";
+import ArticleList from "@/components/ArticleList.vue";
 import {useGetArticles, useInfiniteScroll, useSkeletonAndEmpty} from "@/hooks/article";
 import {useRoute, onBeforeRouteUpdate} from 'vue-router'
 import {shallowReactive, onBeforeMount} from "vue";
 import {INFINITE_SCROLL_THRESHOLD} from "@/utils/constants";
 import {setCategoryName} from "@/hooks/header";
-import EmptyView from "@/components/EmptyView";
+import EmptyView from "@/components/EmptyView.vue";
 import {provideHeaderTitle} from "@/utils/store";
-import SkeletonView from "@/components/SkeletonView";
+import SkeletonView from "@/components/SkeletonView.vue";
 
 //获取文章数据
 const route = useRoute()

@@ -17,11 +17,12 @@
 <script setup>
 import {provideHeaderTitle} from "@/utils/store";
 import {onBeforeMount, shallowRef} from "vue";
-import ThinkingList from "@/components/ThinkingList";
+import ThinkingList from "@/components/ThinkingList.vue";
 import {getThinkingListApi, splitImageStr} from "@/hooks/thinking";
 import {CODE_SUCCESS} from "@/utils/constants";
-import SkeletonView4Thinking from "@/components/SkeletonView4Thinking";
+import SkeletonView4Thinking from "@/components/SkeletonView4Thinking.vue";
 import {useSkeletonAndEmpty2} from "@/hooks/article";
+import EmptyView from "@/components/EmptyView.vue";
 
 provideHeaderTitle.value = '想法'
 
@@ -48,7 +49,7 @@ function getThinkingList() {
         }
       })
       thinkingList.value = response.data.data
-      total = response.data.total
+      total.value = response.data.total
     }
   })
 }

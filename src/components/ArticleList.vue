@@ -60,7 +60,7 @@ function showFullArticle(articleID) {
 }
 
 function initPicViewer(domID) {
-  // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
   const picViewer = new Viewer(document.getElementById(domID), {
     inline: false,
     button: false,

@@ -44,7 +44,7 @@
 </template>
 
 <script setup>
-import PublishComment from "./PublishComment";
+import PublishComment from "./PublishComment.vue";
 import {shallowRef, defineProps, defineEmits} from "vue";
 import {API_PORTAL_IMAGE_PATH} from "@/utils/constants";
 
