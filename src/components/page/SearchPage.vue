@@ -15,6 +15,8 @@ import {showFailToast} from "vant";
 import SearchList from "@/components/SearchList.vue";
 import {useSkeletonAndEmpty2} from "@/hooks/article";
 import {provideNoMore} from "@/utils/store";
+import {useCommitVisitRecord} from "@/hooks/statistics-api";
+import {RecordEvent, RecordPage} from "@/utils/StatisticsConstants";
 
 const searchList = shallowRef([])
 const route = useRoute()
@@ -49,6 +51,8 @@ onBeforeMount(() => {
 
 //使用骨架屏
 const {loading, empty} = useSkeletonAndEmpty2(searchList)
+
+useCommitVisitRecord(RecordPage.PAGE_NAME_SEARCH_PAGE, RecordEvent.EVENT_NAME_VISIT)
 
 </script>
 

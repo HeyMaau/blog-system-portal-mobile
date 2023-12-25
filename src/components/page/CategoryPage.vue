@@ -7,13 +7,15 @@
 <script setup>
 import ArticleList from "@/components/ArticleList.vue";
 import {useGetArticles, useInfiniteScroll, useSkeletonAndEmpty} from "@/hooks/article";
-import {useRoute, onBeforeRouteUpdate} from 'vue-router'
-import {shallowReactive, onBeforeMount} from "vue";
+import {onBeforeRouteUpdate, useRoute} from 'vue-router'
+import {onBeforeMount, shallowReactive} from "vue";
 import {INFINITE_SCROLL_THRESHOLD} from "@/utils/constants";
 import {setCategoryName} from "@/hooks/header";
 import EmptyView from "@/components/EmptyView.vue";
 import {provideHeaderTitle} from "@/utils/store";
 import SkeletonView from "@/components/SkeletonView.vue";
+import {useCommitVisitRecord, useCommitVisitRecordOnBeforeRouteUpdate} from "@/hooks/statistics-api";
+import {RecordEvent, RecordPage} from "@/utils/StatisticsConstants";
 
 //获取文章数据
 const route = useRoute()
@@ -47,6 +49,9 @@ useInfiniteScroll(INFINITE_SCROLL_THRESHOLD, () => {
 onBeforeMount(() => {
   document.title = `${provideHeaderTitle.value} | 分类 - 卧卷`
 })
+
+useCommitVisitRecord(RecordPage.PAGE_NAME_CATEGORY_PAGE + route.params.id, RecordEvent.EVENT_NAME_VISIT)
+useCommitVisitRecordOnBeforeRouteUpdate(RecordPage.PAGE_NAME_CATEGORY_PAGE, RecordEvent.EVENT_NAME_VISIT)
 
 </script>
 

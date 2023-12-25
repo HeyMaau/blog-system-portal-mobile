@@ -57,6 +57,8 @@ import {onBeforeMount, shallowRef, watch} from "vue";
 import {provideAuthorInfo, provideHeaderTitle} from "@/utils/store";
 import {API_PORTAL_IMAGE_PATH} from "@/utils/constants";
 import {useGetAuthorInfo} from "@/hooks/author";
+import {useCommitVisitRecord} from "@/hooks/statistics-api";
+import {RecordEvent, RecordPage} from "@/utils/StatisticsConstants";
 
 //设置顶部导航栏标题
 provideHeaderTitle.value = '关于我'
@@ -73,6 +75,8 @@ const avatarUrl = shallowRef(`${API_PORTAL_IMAGE_PATH}/${provideAuthorInfo.value
 watch(provideAuthorInfo, () => {
   avatarUrl.value = `${API_PORTAL_IMAGE_PATH}/${provideAuthorInfo.value.avatar}`
 })
+
+useCommitVisitRecord(RecordPage.PAGE_NAME_ABOUT_ME_PAGE, RecordEvent.EVENT_NAME_VISIT)
 
 </script>
 

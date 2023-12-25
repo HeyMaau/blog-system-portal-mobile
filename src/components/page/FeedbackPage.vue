@@ -55,6 +55,8 @@ import {CODE_SUCCESS} from "@/utils/constants";
 import {showSuccessToast, showFailToast} from 'vant';
 import {useRouter} from 'vue-router'
 import {provideHeaderTitle} from "@/utils/store";
+import {useCommitVisitRecord} from "@/hooks/statistics-api";
+import {RecordEvent, RecordPage} from "@/utils/StatisticsConstants";
 
 provideHeaderTitle.value = '联系我'
 
@@ -85,6 +87,8 @@ async function onSubmit() {
 onBeforeMount(() => {
   document.title = '联系我 - 卧卷'
 })
+
+useCommitVisitRecord(RecordPage.PAGE_NAME_FEEDBACK_PAGE, RecordEvent.EVENT_NAME_VISIT)
 
 </script>
 

@@ -9,6 +9,8 @@ import {useGetArticles, useInfiniteScroll, useSkeletonAndEmpty} from "@/hooks/ar
 import {shallowReactive, onBeforeMount} from "vue";
 import {INFINITE_SCROLL_THRESHOLD} from "@/utils/constants";
 import SkeletonView from "@/components/SkeletonView.vue";
+import {useCommitVisitRecord} from "@/hooks/statistics-api";
+import {RecordPage, RecordEvent} from "@/utils/StatisticsConstants";
 
 //获取文章数据
 let page = 1;
@@ -32,6 +34,8 @@ useInfiniteScroll(INFINITE_SCROLL_THRESHOLD, () => {
 onBeforeMount(() => {
   document.title = '首页 - 卧卷'
 })
+
+useCommitVisitRecord(RecordPage.PAGE_NAME_MAIN_PAGE, RecordEvent.EVENT_NAME_VISIT)
 
 </script>
 

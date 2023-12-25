@@ -22,6 +22,8 @@ import {provideHeaderTitle} from "@/utils/store";
 import ArticleComment from "@/components/comment/ArticleComment.vue";
 import Viewer from 'viewerjs'
 import hljs from 'highlight.js'
+import {useCommitVisitRecord} from "@/hooks/statistics-api";
+import {RecordEvent, RecordPage} from "@/utils/StatisticsConstants";
 
 //获取文章数据
 const route = useRoute()
@@ -65,6 +67,8 @@ function initPicViewer() {
     keyboard: false
   });
 }
+
+useCommitVisitRecord(RecordPage.PAGE_NAME_ARTICLE_PAGE + route.params.id, RecordEvent.EVENT_NAME_VISIT)
 
 </script>
 

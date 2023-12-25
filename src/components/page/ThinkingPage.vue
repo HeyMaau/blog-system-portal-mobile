@@ -23,6 +23,8 @@ import {CODE_SUCCESS} from "@/utils/constants";
 import SkeletonView4Thinking from "@/components/SkeletonView4Thinking.vue";
 import {useSkeletonAndEmpty2} from "@/hooks/article";
 import EmptyView from "@/components/EmptyView.vue";
+import {useCommitVisitRecord} from "@/hooks/statistics-api";
+import {RecordEvent, RecordPage} from "@/utils/StatisticsConstants";
 
 provideHeaderTitle.value = '想法'
 
@@ -61,6 +63,8 @@ function handlePageChange(page) {
 }
 
 const {loading, empty} = useSkeletonAndEmpty2(thinkingList)
+
+useCommitVisitRecord(RecordPage.PAGE_NAME_THINKING_PAGE, RecordEvent.EVENT_NAME_VISIT)
 
 </script>
 
