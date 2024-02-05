@@ -35,7 +35,7 @@ onBeforeMount(() => {
   document.title = '首页 - 卧卷'
 })
 
-useCommitVisitRecord(RecordPage.PAGE_NAME_MAIN_PAGE, RecordEvent.EVENT_NAME_VISIT)
+useCommitVisitRecord(RecordPage.PAGE_NAME_MAIN_PAGE, null, RecordEvent.EVENT_NAME_VISIT)
 
 </script>
 

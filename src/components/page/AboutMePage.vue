@@ -76,7 +76,7 @@ watch(provideAuthorInfo, () => {
   avatarUrl.value = `${API_PORTAL_IMAGE_PATH}/${provideAuthorInfo.value.avatar}`
 })
 
-useCommitVisitRecord(RecordPage.PAGE_NAME_ABOUT_ME_PAGE, RecordEvent.EVENT_NAME_VISIT)
+useCommitVisitRecord(RecordPage.PAGE_NAME_ABOUT_ME_PAGE, null, RecordEvent.EVENT_NAME_VISIT)
 
 </script>
 

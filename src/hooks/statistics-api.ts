@@ -9,29 +9,29 @@ const request = axios.create({
     timeout: 5000
 })
 
-export function useCommitVisitRecord(pageName: string, eventName: string): void {
+export function useCommitVisitRecord(pageName: string, componentName: string | null, eventName: string): void {
     onMounted(() => {
         commitRecord()
     })
 
     function commitRecord(): void {
-        request.post('/statistics/record', new Record(pageName, eventName, RecordClient.CLIENT_NAME_MOBILE))
+        request.post('/statistics/record', new Record(pageName, componentName, eventName, RecordClient.CLIENT_NAME_MOBILE))
     }
 }
 
-export function useCommitVisitRecordOnBeforeRouteUpdate(pageName: string, eventName: string): void {
+export function useCommitVisitRecordOnBeforeRouteUpdate(pageName: string, componentName: string | null, eventName: string): void {
     onBeforeRouteUpdate((to) => {
         commitRecord(to)
     })
 
     function commitRecord(to: RouteLocationNormalized): void {
-        request.post('/statistics/record', new Record(pageName + to.params.id, eventName, RecordClient.CLIENT_NAME_MOBILE))
+        request.post('/statistics/record', new Record(pageName + to.params.id, componentName, eventName, RecordClient.CLIENT_NAME_MOBILE))
     }
 }
 
 class Record {
 
-    constructor(private page: string, private event: string, private client: string) {
+    constructor(private page: string, private component: string | null, private event: string, private client: string) {
 
     }
 }

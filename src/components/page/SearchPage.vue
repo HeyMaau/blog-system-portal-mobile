@@ -52,7 +52,7 @@ onBeforeMount(() => {
 //使用骨架屏
 const {loading, empty} = useSkeletonAndEmpty2(searchList)
 
-useCommitVisitRecord(RecordPage.PAGE_NAME_SEARCH_PAGE, RecordEvent.EVENT_NAME_VISIT)
+useCommitVisitRecord(RecordPage.PAGE_NAME_SEARCH_PAGE, null, RecordEvent.EVENT_NAME_VISIT)
 
 </script>
 

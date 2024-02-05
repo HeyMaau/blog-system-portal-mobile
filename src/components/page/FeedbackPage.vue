@@ -88,7 +88,7 @@ onBeforeMount(() => {
   document.title = '联系我 - 卧卷'
 })
 
-useCommitVisitRecord(RecordPage.PAGE_NAME_FEEDBACK_PAGE, RecordEvent.EVENT_NAME_VISIT)
+useCommitVisitRecord(RecordPage.PAGE_NAME_FEEDBACK_PAGE, null, RecordEvent.EVENT_NAME_VISIT)
 
 </script>
 

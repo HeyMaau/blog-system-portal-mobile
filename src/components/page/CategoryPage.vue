@@ -50,8 +50,8 @@ onBeforeMount(() => {
   document.title = `${provideHeaderTitle.value} | 分类 - 卧卷`
 })
 
-useCommitVisitRecord(RecordPage.PAGE_NAME_CATEGORY_PAGE + route.params.id, RecordEvent.EVENT_NAME_VISIT)
-useCommitVisitRecordOnBeforeRouteUpdate(RecordPage.PAGE_NAME_CATEGORY_PAGE, RecordEvent.EVENT_NAME_VISIT)
+useCommitVisitRecord(RecordPage.PAGE_NAME_CATEGORY_PAGE + route.params.id, null, RecordEvent.EVENT_NAME_VISIT)
+useCommitVisitRecordOnBeforeRouteUpdate(RecordPage.PAGE_NAME_CATEGORY_PAGE, null, RecordEvent.EVENT_NAME_VISIT)
 
 </script>
 

@@ -18,7 +18,7 @@
 import {useCommitVisitRecord} from "@/hooks/statistics-api";
 import {RecordEvent, RecordPage} from "@/utils/StatisticsConstants";
 
-useCommitVisitRecord(RecordPage.PAGE_NAME_ERROR_PAGE, RecordEvent.EVENT_NAME_VISIT)
+useCommitVisitRecord(RecordPage.PAGE_NAME_ERROR_PAGE, null, RecordEvent.EVENT_NAME_VISIT)
 
 </script>
 
