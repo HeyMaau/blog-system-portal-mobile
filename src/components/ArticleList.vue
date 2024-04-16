@@ -1,5 +1,5 @@
 <template>
-  <div class="container" v-for="item in articleList" :key="item.id">
+  <div class="container" :id="`article_${item.id}`" v-for="item in articleList" :key="item.id">
     <div class="article-title-tag-container">
       <van-tag :color="item.category.tagColor" text-color="#ffffff" size="medium" class="article-tag">{{
           item.category.name
@@ -22,6 +22,10 @@
       <div v-else>
         <van-image :src="`${API_PORTAL_IMAGE_PATH}/${item.cover}`" width="100%" fit="cover"/>
         <div class="full-article-content" v-html="fullArticleContent[item.id]" :id="`fullArticle_${item.id}`"></div>
+        <div class="article-update-time">编辑于 {{ item.updateTime }}</div>
+        <button class="button-hide-full-article" @click="hideFullArticle(item.id)">收起
+          <van-icon name="arrow-up"/>
+        </button>
       </div>
     </div>
   </div>
@@ -56,6 +60,14 @@ function showFullArticle(articleID) {
       initPicViewer(`fullArticle_${articleID}`)
       hljs.highlightAll()
     })
+  })
+}
+
+function hideFullArticle(articleID) {
+  collapseState.value[articleID] = true;
+  document.getElementById(`article_${articleID}`).scrollIntoView({
+    behavior: "instant",
+    block: "start"
   })
 }
 
@@ -130,6 +142,31 @@ function initPicViewer(domID) {
 .article-tag {
   margin-right: 15px;
   transform: translate(0, -22%);
+}
+
+.article-update-time {
+  color: #8590a6;
+  font-size: 28px;
+  display: inline-block;
+  margin-top: 30px;
+}
+
+.button-hide-full-article {
+  display: inline;
+  background: none rgb(248, 248, 250);
+  border: unset;
+  padding: 0 12px 0 24px;
+  font-size: 28px;
+  line-height: 64px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 6px;
+  height: 64px;
+  color: rgb(132, 145, 165);
+  font-weight: 500;
+  position: sticky;
+  bottom: 160px;
+  float: right;
 }
 
 </style>
