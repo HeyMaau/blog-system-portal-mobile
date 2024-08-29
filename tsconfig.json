@@ -24,7 +24,8 @@
     "allowJs": true,
     "types": [
       "vite/client"
-    ]
+    ],
+    "noImplicitAny": false
   },
   "include": [
     "src/**/*.ts",

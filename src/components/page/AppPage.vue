@@ -1,8 +1,8 @@
 <script setup lang="ts">
 
-import {provideHeaderTitle} from "@/utils/store.js";
-import {getAppDownloadUrlApi} from "@/hooks/app.ts";
-import {CODE_SUCCESS} from "@/utils/constants.js";
+import {provideHeaderTitle} from "../../utils/store.js";
+import {getAppDownloadUrlApi} from "../../hooks/app.ts";
+import {CODE_SUCCESS} from "../../utils/constants.js";
 import {ref} from "vue";
 import {showToast} from "vant";
 
@@ -24,8 +24,7 @@ function getAppDownloadUrl() {
         position: 'bottom'
       })
     }
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  }).catch(reason => {
+  }).catch(() => {
     showToast({
       message: '获取APP信息错误',
       position: 'bottom'
