@@ -1,8 +1,43 @@
 <script setup lang="ts">
 
 import {provideHeaderTitle} from "@/utils/store.js";
+import {getAppDownloadUrlApi} from "@/hooks/app.ts";
+import {CODE_SUCCESS} from "@/utils/constants.js";
+import {ref} from "vue";
+import {showToast} from "vant";
 
 provideHeaderTitle.value = 'APP'
+
+getAppDownloadUrl()
+
+const versionName = ref<string>("")
+let downloadUrl = null
+
+function getAppDownloadUrl() {
+  getAppDownloadUrlApi().then(({data: response}) => {
+    if (response.code === CODE_SUCCESS) {
+      versionName.value = response.data.versionName
+      downloadUrl = response.data.downloadUrl
+    } else {
+      showToast({
+        message: '获取APP信息错误',
+        position: 'bottom'
+      })
+    }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  }).catch(reason => {
+    showToast({
+      message: '获取APP信息错误',
+      position: 'bottom'
+    })
+  })
+}
+
+function openDownloadUrl() {
+  if (downloadUrl !== null) {
+    location.href = downloadUrl
+  }
+}
 
 </script>
 
@@ -22,11 +57,11 @@ provideHeaderTitle.value = 'APP'
         <div class="version">
           当前最新版本：
           <span class="version-name">
-            V1.0
+            {{ versionName }}
           </span>
         </div>
       </div>
-      <van-button type="primary" class="download-button">点击下载</van-button>
+      <van-button type="primary" class="download-button" @click="openDownloadUrl">点击下载</van-button>
     </div>
   </div>
 </template>
