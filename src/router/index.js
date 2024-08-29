@@ -11,6 +11,7 @@ import SearchPage from '@/components/page/SearchPage.vue'
 import AboutMePage from '@/components/page/AboutMePage.vue'
 import ErrorPage from '@/components/page/ErrorPage.vue'
 import {provideRouterPath} from "@/utils/store";
+import AppPage from "@/components/page/AppPage.vue";
 
 const routes = [
     {
@@ -22,7 +23,8 @@ const routes = [
             {path: 'article/:id', component: ArticleDetailPage},
             {path: 'search', component: SearchPage},
             {path: 'about', component: AboutMePage},
-            {path: 'error', component: ErrorPage}
+            {path: 'error', component: ErrorPage},
+            {path: 'app', component: AppPage}
         ]
     }
 ]

@@ -20,6 +20,8 @@
       </van-collapse>
       <van-cell title="想法" is-link to="/thinking" @click="closePopup"
                 :class="{'active-path':provideRouterPath === '/thinking'}"/>
+      <van-cell title="APP" is-link to="/app" @click="closePopup"
+                :class="{'active-path':provideRouterPath === '/app'}"/>
       <van-cell title="联系我" is-link to="/feedback" @click="closePopup"
                 :class="{'active-path':provideRouterPath === '/feedback'}"/>
       <van-cell title="关于我" is-link to="/about" @click="closePopup"
