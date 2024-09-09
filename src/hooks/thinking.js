@@ -26,3 +26,7 @@ export function getThinkingListApi(page, size) {
 export function splitImageStr(imageStr) {
     return imageStr.split('-')
 }
+
+export function getThinkingApi(id) {
+    return request.get('/thinking/' + id)
+}
