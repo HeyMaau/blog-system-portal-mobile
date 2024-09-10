@@ -61,7 +61,8 @@ function setLoadingTimeout() {
 <template>
   <div class="thinking-detail-page-container">
     <SkeletonView4Thinking :number="1" v-if="loading"/>
-    <ThinkingList :thinkingList="thinkingList" v-if="!loading && !empty"/>
+    <ThinkingList :thinkingList="thinkingList" v-if="!loading && !empty" :alwaysShowComment="true"
+                  :hideCommentButton="true"/>
     <EmptyView v-if="empty" message="想法不存在噢"/>
   </div>
 </template>

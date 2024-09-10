@@ -17,7 +17,7 @@
         <div class="thinking-content">{{ item.content }}</div>
       </div>
       <div class="thinking-update-time">发布于 {{ item.updateTime }}</div>
-      <div class="thinking-operating-area">
+      <div class="thinking-operating-area" v-if="!hideCommentButton">
         <div class="thinking-add-comment-button" @click="commentListState[item.id] = !commentListState[item.id]">
           <van-icon name="chat-o"/>
           <span class="thinking-operating-text">{{
@@ -25,7 +25,8 @@
             }}</span>
         </div>
       </div>
-      <ThinkingComment :id="item.id" v-show="commentListState[item.id]" @onCommentUpdate="handleCommentUpdate"/>
+      <ThinkingComment :id="item.id" v-show="commentListState[item.id] || alwaysShowComment"
+                       @onCommentUpdate="handleCommentUpdate" :class="{'thinking-comment' : hideCommentButton}"/>
     </div>
   </div>
 </template>
@@ -38,7 +39,9 @@ import ThinkingComment from "@/components/comment/ThinkingComment.vue";
 import Viewer from "viewerjs";
 
 const props = defineProps({
-  thinkingList: Array
+  thinkingList: Array,
+  alwaysShowComment: Boolean,
+  hideCommentButton: Boolean
 })
 
 const baseImageUrl = API_PORTAL_IMAGE_PATH
@@ -198,6 +201,10 @@ function initPicViewer(id) {
 
 .thinking-operating-text {
   font-size: 27px;
+}
+
+.thinking-comment {
+  margin-top: 20px;
 }
 
 </style>
