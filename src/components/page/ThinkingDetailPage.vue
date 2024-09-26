@@ -2,7 +2,7 @@
 import SkeletonView4Thinking from "../../components/SkeletonView4Thinking.vue";
 import {ref, shallowRef} from "vue";
 import ThinkingList from "../../components/ThinkingList.vue";
-import {getThinkingApi} from "../../hooks/thinking.js";
+import {getThinkingApi, splitImageStr} from "../../hooks/thinking.js";
 import {useRoute} from "vue-router";
 import EmptyView from "../../components/EmptyView.vue";
 import {CODE_SUCCESS} from "../../utils/constants.js";
@@ -24,6 +24,15 @@ function getThinking() {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       //@ts-expect-error
       thinkingList.value.push(response.data)
+      thinkingList.value.forEach(item => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-expect-error
+        if (item.images !== null && item.images.length !== 0) {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          //@ts-expect-error
+          item.images = splitImageStr(item.images)
+        }
+      })
     } else {
       if (loadingTimeout.value) {
         empty.value = true
