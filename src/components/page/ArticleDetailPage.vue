@@ -16,7 +16,6 @@
 import {getFullArticleApi, useConvertSize} from "@/hooks/article";
 import {useRoute} from "vue-router";
 import {shallowRef, computed, nextTick} from "vue";
-import {API_PORTAL_IMAGE_PATH} from "@/utils/constants";
 import AuthorInfoBanner from "@/components/AuthorInfoBanner.vue";
 import {provideHeaderTitle} from "@/utils/store";
 import ArticleComment from "@/components/comment/ArticleComment.vue";
@@ -33,10 +32,10 @@ const avatarUrl = shallowRef('')
 const authorName = shallowRef('')
 const authorSign = shallowRef('')
 getFullArticleApi(route.params.id).then(({data: response}) => {
-  coverUrl.value = `${API_PORTAL_IMAGE_PATH}/${response.data.cover}`
+  coverUrl.value = response.data.cover
   article.value = response.data
   provideHeaderTitle.value = response.data.title
-  avatarUrl.value = `${API_PORTAL_IMAGE_PATH}/${response.data.user.avatar}`
+  avatarUrl.value = response.data.user.avatar
   authorName.value = response.data.user.userName
   authorSign.value = response.data.user.sign
   nextTick(() => {
