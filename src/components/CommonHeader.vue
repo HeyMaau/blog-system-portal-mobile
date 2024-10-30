@@ -34,7 +34,7 @@
 import {ref, defineProps, shallowRef, watch} from "vue";
 import {useRouter} from 'vue-router'
 import {getCategoriesApi} from "@/hooks/article";
-import {API_PORTAL_IMAGE_PATH, CODE_SUCCESS, KEY_CATEGORY_LIST} from "@/utils/constants";
+import {CODE_SUCCESS, KEY_CATEGORY_LIST} from "@/utils/constants";
 import {showAvatar, showMenu} from "@/hooks/header";
 import {useGetAuthorInfo} from "@/hooks/author";
 import {provideAuthorInfo, provideRouterPath} from "@/utils/store";
@@ -42,7 +42,7 @@ import {provideAuthorInfo, provideRouterPath} from "@/utils/store";
 //作者头像
 const avatarUrl = shallowRef('')
 watch(provideAuthorInfo, () => {
-  avatarUrl.value = `${API_PORTAL_IMAGE_PATH}/${provideAuthorInfo.value.avatar}`
+  avatarUrl.value = provideAuthorInfo.value.avatar
 })
 
 //接收props
