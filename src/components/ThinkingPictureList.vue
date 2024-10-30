@@ -6,16 +6,13 @@
         radius="2vw"
         class="thinking-pictures-item"
         fit="cover"
-        :src="`${baseImageUrl}/${item}`"
+        :src="item"
     />
   </div>
 </template>
 
 <script setup>
 import {defineProps} from 'vue'
-import {API_PORTAL_IMAGE_PATH} from "@/utils/constants";
-
-const baseImageUrl = API_PORTAL_IMAGE_PATH
 
 defineProps({
   pictureList: Array

@@ -2,7 +2,7 @@
   <div class="thinking-list-container">
     <div class="thinking-list-item-container" v-for="item in thinkingList" :key="item.id">
       <div class="author-info-container">
-        <img :src="`${baseImageUrl}/${item.user.avatar}`" class="author-avatar"/>
+        <img :src="item.user.avatar" class="author-avatar"/>
         <div class="author-name-sign-container">
           <span class="author-name">{{ item.user.userName }}</span>
           <span class="author-sign">{{ item.user.sign }}</span>
@@ -34,7 +34,6 @@
 <script setup>
 import {defineProps, nextTick, shallowReactive, watch} from 'vue'
 import ThinkingPictureList from "@/components/ThinkingPictureList.vue";
-import {API_PORTAL_IMAGE_PATH} from "@/utils/constants";
 import ThinkingComment from "@/components/comment/ThinkingComment.vue";
 import Viewer from "viewerjs";
 
@@ -43,8 +42,6 @@ const props = defineProps({
   alwaysShowComment: Boolean,
   hideCommentButton: Boolean
 })
-
-const baseImageUrl = API_PORTAL_IMAGE_PATH
 
 const commentListState = shallowReactive({})
 
