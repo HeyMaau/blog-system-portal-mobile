@@ -55,7 +55,6 @@
 //作者头像
 import {onBeforeMount, shallowRef, watch} from "vue";
 import {provideAuthorInfo, provideHeaderTitle} from "@/utils/store";
-import {API_PORTAL_IMAGE_PATH} from "@/utils/constants";
 import {useGetAuthorInfo} from "@/hooks/author";
 import {useCommitVisitRecord} from "@/hooks/statistics-api";
 import {RecordEvent, RecordPage} from "@/utils/StatisticsConstants";
@@ -71,9 +70,9 @@ onBeforeMount(() => {
 //获取作者信息
 useGetAuthorInfo()
 
-const avatarUrl = shallowRef(`${API_PORTAL_IMAGE_PATH}/${provideAuthorInfo.value.avatar}`)
+const avatarUrl = shallowRef(provideAuthorInfo.value.avatar)
 watch(provideAuthorInfo, () => {
-  avatarUrl.value = `${API_PORTAL_IMAGE_PATH}/${provideAuthorInfo.value.avatar}`
+  avatarUrl.value = provideAuthorInfo.value.avatar
 })
 
 useCommitVisitRecord(RecordPage.PAGE_NAME_ABOUT_ME_PAGE, null, RecordEvent.EVENT_NAME_VISIT)
