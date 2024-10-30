@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import SkeletonView4Thinking from "../../components/SkeletonView4Thinking.vue";
-import {ref, shallowRef} from "vue";
+import {nextTick, ref, shallowRef, watch} from "vue";
 import ThinkingList from "../../components/ThinkingList.vue";
 import {getThinkingApi, splitImageStr} from "../../hooks/thinking.js";
 import {useRoute} from "vue-router";
@@ -68,10 +68,24 @@ function setLoadingTimeout() {
   }, 500)
 }
 
+const canScroll = ref(true)
+
+function hasVerticalScrollbar() {
+  canScroll.value = document.documentElement.scrollHeight > document.documentElement.clientHeight;
+}
+
+watch(loading, value => {
+  if (!value) {
+    nextTick(() => {
+      hasVerticalScrollbar()
+    })
+  }
+})
+
 </script>
 
 <template>
-  <div class="thinking-detail-page-container">
+  <div :class="canScroll ? 'thinking-detail-page-container' : 'thinking-detail-page-container-cannot-scroll'">
     <SkeletonView4Thinking :number="1" v-if="loading"/>
     <ThinkingList :thinkingList="thinkingList" v-if="!loading && !empty" :alwaysShowComment="true"
                   :hideCommentButton="true"/>
@@ -82,6 +96,11 @@ function setLoadingTimeout() {
 <style scoped>
 
 .thinking-detail-page-container {
+  background: white;
+  height: 100%;
+}
+
+.thinking-detail-page-container-cannot-scroll {
   background: white;
   height: 100vh;
 }
