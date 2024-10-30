@@ -11,7 +11,7 @@
     </div>
     <div class="rich-content-container">
       <div class="short-article-container" v-if="collapseState[item.id]">
-        <van-image :src="`${API_PORTAL_IMAGE_PATH}/${item.cover}`" width="100%" height="150px" fit="cover"/>
+        <van-image :src="item.cover" width="100%" height="150px" fit="cover"/>
         <div class="article-content-summary-container">
           <span class="van-multi-ellipsis--l2">{{ item.content }}</span>
           <button class="button-full-article" @click="showFullArticle(item.id)">阅读全文
@@ -20,7 +20,7 @@
         </div>
       </div>
       <div v-else>
-        <van-image :src="`${API_PORTAL_IMAGE_PATH}/${item.cover}`" width="100%" fit="cover"/>
+        <van-image :src="item.cover" width="100%" fit="cover"/>
         <div class="full-article-content" v-html="fullArticleContent[item.id]" :id="`fullArticle_${item.id}`"></div>
         <div class="article-update-time">编辑于 {{ item.updateTime }}</div>
         <button class="button-hide-full-article" @click="hideFullArticle(item.id)">收起
@@ -33,7 +33,6 @@
 
 <script setup>
 import {defineProps, nextTick, ref, watch, shallowReactive} from "vue";
-import {API_PORTAL_IMAGE_PATH} from "@/utils/constants";
 import {getFullArticleApi, initCollapseState, useConvertSize} from "@/hooks/article";
 import Viewer from "viewerjs";
 import hljs from 'highlight.js'
