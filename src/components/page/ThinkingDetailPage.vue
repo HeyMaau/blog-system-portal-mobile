@@ -6,7 +6,10 @@ import {getThinkingApi, splitImageStr} from "../../hooks/thinking.js";
 import {useRoute} from "vue-router";
 import EmptyView from "../../components/EmptyView.vue";
 import {CODE_SUCCESS} from "../../utils/constants.js";
+import {provideHeaderTitle} from "../../utils/store.js";
 
+//设置顶部导航栏标题
+provideHeaderTitle.value = '想法'
 
 const loading = ref(true)
 const loadingTimeout = ref(false)
