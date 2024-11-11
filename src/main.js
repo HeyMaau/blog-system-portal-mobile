@@ -30,7 +30,8 @@ import {
     SkeletonAvatar,
     SkeletonTitle,
     Pagination,
-    Tag
+    Tag,
+    Lazyload
 } from 'vant';
 import 'vant/lib/index.css';
 
@@ -61,3 +62,4 @@ app.use(SkeletonAvatar)
 app.use(SkeletonTitle)
 app.use(Pagination)
 app.use(Tag)
+app.use(Lazyload)

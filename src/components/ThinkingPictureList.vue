@@ -6,6 +6,7 @@
         radius="2vw"
         class="thinking-pictures-item"
         fit="cover"
+        lazy-load
         :src="item"
     />
   </div>
