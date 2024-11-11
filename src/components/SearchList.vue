@@ -5,7 +5,7 @@
     <!-- eslint-enable -->
     <div class="rich-content-container">
       <div class="short-article-container">
-        <van-image :src="item.cover" width="100%" height="150px" fit="cover"/>
+        <van-image :src="item.cover" width="100%" height="150px" fit="cover" lazy-load/>
         <span v-html="item.content" class="van-multi-ellipsis--l3"/>
       </div>
     </div>
