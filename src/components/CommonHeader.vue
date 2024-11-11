@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <van-image src="/logo.png" class="logo" height="70%" @click="jump2HomePage"/>
+    <van-image src="/logo.png" class="logo" @click="jump2HomePage"/>
     <van-search v-model="value" placeholder="搜索" :class="showMenu? 'search-bar': 'search-bar-long'"
                 @search="doSearch"/>
     <van-image height="30" width="30" :src="avatarUrl" class="avatar" round v-show="showAvatar" @click="jump2AboutMe"/>
@@ -104,6 +104,8 @@ function jump2HomePage() {
 .logo {
   flex-shrink: 0;
   margin-left: 20px;
+  height: 72px;
+  width: 210px;
 }
 
 :deep(.logo img) {
