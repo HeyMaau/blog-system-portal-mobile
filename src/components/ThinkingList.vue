@@ -10,8 +10,7 @@
       </div>
       <ThinkingPictureList :id="`thinking-picture-list-${item.id}`" :pictureList="item.images"
                            class="thinking-picture-list"
-                           v-if="item.images !== null && item.images.length !== 0"
-                           @click.capture="initPicViewer(item.id)"/>
+                           v-if="item.images !== null && item.images.length !== 0"/>
       <div class="thinking-content-container">
         <div class="thinking-title">{{ item.title }}</div>
         <div class="thinking-content">{{ item.content }}</div>
@@ -32,10 +31,9 @@
 </template>
 
 <script setup>
-import {defineProps, nextTick, shallowReactive, watch} from 'vue'
+import {defineProps, shallowReactive, watch} from 'vue'
 import ThinkingPictureList from "@/components/ThinkingPictureList.vue";
 import ThinkingComment from "@/components/comment/ThinkingComment.vue";
-import Viewer from "viewerjs";
 
 const props = defineProps({
   thinkingList: Array,
@@ -61,50 +59,6 @@ let commentTotalList = shallowReactive({})
 
 function handleCommentUpdate(id, total) {
   commentTotalList[id] = total
-}
-
-//初始化viewerjs
-let picViewer = null
-let lastInitPicViewerID
-
-function initPicViewer(id) {
-  if (id === lastInitPicViewerID) {
-    return
-  }
-  if (picViewer !== null) {
-    picViewer.destroy()
-  }
-  nextTick(() => {
-    picViewer = new Viewer(document.getElementById(`thinking-picture-list-${id}`), {
-      inline: false,
-      button: false,
-      navbar: false,
-      title: false,
-      toolbar: {
-        zoomIn: false,
-        zoomOut: false,
-        reset: false,
-        prev: {
-          show: true,
-          size: "large"
-        },
-        next: {
-          show: true,
-          size: "large"
-        },
-        play: false,
-        rotateLeft: false,
-        rotateRight: false,
-        flipHorizontal: false,
-        flipVertical: false
-      },
-      tooltip: false,
-      transition: true,
-      keyboard: false,
-      loop: false
-    });
-    lastInitPicViewerID = id
-  })
 }
 
 </script>

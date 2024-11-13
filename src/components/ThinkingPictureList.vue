@@ -8,16 +8,26 @@
         fit="cover"
         lazy-load
         :src="item"
+        @click="onClickImage(item)"
     />
   </div>
 </template>
 
 <script setup>
 import {defineProps} from 'vue'
+import {showImagePreview} from "vant";
 
-defineProps({
+const props = defineProps({
   pictureList: Array
 })
+
+function onClickImage(item) {
+  showImagePreview({
+    images: props.pictureList,
+    closeable: true,
+    startPosition: props.pictureList.indexOf(item)
+  })
+}
 
 </script>
 
