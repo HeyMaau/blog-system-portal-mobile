@@ -32,10 +32,10 @@
 </template>
 
 <script setup>
-import {defineProps, nextTick, ref, watch, shallowReactive} from "vue";
+import {defineProps, nextTick, ref, shallowReactive, watch} from "vue";
 import {getFullArticleApi, initCollapseState, useConvertSize} from "@/hooks/article";
-import Viewer from "viewerjs";
 import hljs from 'highlight.js'
+import {showImagePreview} from "vant";
 
 const props = defineProps({
   articleList: Array
@@ -71,17 +71,17 @@ function hideFullArticle(articleID) {
 }
 
 function initPicViewer(domID) {
-  // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-  const picViewer = new Viewer(document.getElementById(domID), {
-    inline: false,
-    button: false,
-    navbar: false,
-    title: false,
-    toolbar: false,
-    tooltip: false,
-    transition: false,
-    keyboard: false
-  });
+  let parentElement = document.getElementById(domID);
+  let imgElements = parentElement.getElementsByTagName("img");
+  for (let i = 0; i < imgElements.length; i++) {
+    imgElements[i].addEventListener('click', function () {
+      showImagePreview({
+        images: [imgElements[i].src],
+        closeable: true,
+        showIndex: false
+      })
+    })
+  }
 }
 
 </script>
