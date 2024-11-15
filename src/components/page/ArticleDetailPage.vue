@@ -15,14 +15,14 @@
 <script setup>
 import {getFullArticleApi, useConvertSize} from "@/hooks/article";
 import {useRoute} from "vue-router";
-import {shallowRef, computed, nextTick} from "vue";
+import {computed, nextTick, shallowRef} from "vue";
 import AuthorInfoBanner from "@/components/AuthorInfoBanner.vue";
 import {provideHeaderTitle} from "@/utils/store";
 import ArticleComment from "@/components/comment/ArticleComment.vue";
-import Viewer from 'viewerjs'
 import hljs from 'highlight.js'
 import {useCommitVisitRecord} from "@/hooks/statistics-api";
 import {RecordEvent, RecordPage} from "@/utils/StatisticsConstants";
+import {showImagePreview} from "vant";
 
 //获取文章数据
 const route = useRoute()
@@ -54,17 +54,16 @@ const updateTime = computed(() => {
 })
 
 function initPicViewer() {
-  // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
-  const picViewer = new Viewer(document.getElementById('articleContent'), {
-    inline: false,
-    button: false,
-    navbar: false,
-    title: false,
-    toolbar: false,
-    tooltip: false,
-    transition: false,
-    keyboard: false
-  });
+  let imgElements = document.getElementById('articleContent').getElementsByTagName("img");
+  for (let i = 0; i < imgElements.length; i++) {
+    imgElements[i].addEventListener('click', function () {
+      showImagePreview({
+        images: [imgElements[i].src],
+        showIndex: false,
+        closeable: true
+      })
+    })
+  }
 }
 
 useCommitVisitRecord(RecordPage.PAGE_NAME_ARTICLE_PAGE + route.params.id, null, RecordEvent.EVENT_NAME_VISIT)
