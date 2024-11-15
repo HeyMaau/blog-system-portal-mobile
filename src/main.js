@@ -2,7 +2,6 @@ import {createApp} from 'vue'
 import App from './App.vue'
 import router from '@/router/index'
 import VConsole from 'vconsole'
-import 'viewerjs/dist/viewer.min.css'
 import 'highlight.js/styles/default.css'
 
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
