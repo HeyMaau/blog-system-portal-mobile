@@ -174,9 +174,10 @@ export function useSkeletonAndEmpty(articleList) {
 /**
  * 用于ref数据结构
  * @param searchList
+ * @param pageNum
  * @returns {{loading: ShallowRef<boolean>, empty: ShallowRef<boolean>}}
  */
-export function useSkeletonAndEmpty2(searchList) {
+export function useSkeletonAndEmpty2(searchList, pageNum) {
 
     const hasResponse = shallowRef(false)
     const loading = shallowRef(true)
@@ -202,6 +203,8 @@ export function useSkeletonAndEmpty2(searchList) {
             }
         }
     })
+
+    watch(pageNum, () => showSkeleton2())
 
     function showSkeleton2() {
         loading.value = true

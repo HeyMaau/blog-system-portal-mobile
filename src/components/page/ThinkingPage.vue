@@ -57,12 +57,13 @@ function getThinkingList() {
 }
 
 function handlePageChange(page) {
+  thinkingList.value = []
   currentPage.value = page
   getThinkingList()
   window.scrollTo(0, 0)
 }
 
-const {loading, empty} = useSkeletonAndEmpty2(thinkingList)
+const {loading, empty} = useSkeletonAndEmpty2(thinkingList, currentPage)
 
 useCommitVisitRecord(RecordPage.PAGE_NAME_THINKING_PAGE, null, RecordEvent.EVENT_NAME_VISIT)
 
