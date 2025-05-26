@@ -6,7 +6,8 @@
       <div class="article-update-time">编辑于 {{ updateTime }}</div>
       <AuthorInfoBanner :avatarSrc="avatarUrl" :name="authorName"
                         :signature="authorSign" class="author-info-banner"/>
-      <div class="full-article-content" v-html="article.content" id="articleContent"></div>
+      <div class="full-article-content" v-html="article.content" id="articleContent" v-if="article.type === '0'"/>
+      <MdPreview editorId="md_preview" :modelValue="article.content" v-else/>
     </div>
   </div>
   <ArticleComment class="article-comment"/>
@@ -23,6 +24,7 @@ import hljs from 'highlight.js'
 import {useCommitVisitRecord} from "@/hooks/statistics-api";
 import {RecordEvent, RecordPage} from "@/utils/StatisticsConstants";
 import {showImagePreview} from "vant";
+import {MdPreview} from "md-editor-v3";
 
 //获取文章数据
 const route = useRoute()

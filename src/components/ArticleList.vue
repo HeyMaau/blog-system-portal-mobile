@@ -21,7 +21,9 @@
       </div>
       <div v-else>
         <van-image :src="item.cover" width="100%" fit="cover" lazy-load/>
-        <div class="full-article-content" v-html="fullArticleContent[item.id]" :id="`fullArticle_${item.id}`"></div>
+        <div class="full-article-content" v-html="fullArticleContent[item.id]" :id="`fullArticle_${item.id}`"
+             v-if="item.type === '0'"/>
+        <MdPreview :editorId="`md_${item.id}`" :modelValue="fullArticleContent[item.id]" v-else/>
         <div class="article-update-time">编辑于 {{ item.updateTime }}</div>
         <button class="button-hide-full-article" @click="hideFullArticle(item.id)">收起
           <van-icon name="arrow-up"/>
@@ -36,6 +38,7 @@ import {defineProps, nextTick, ref, shallowReactive, watch} from "vue";
 import {getFullArticleApi, initCollapseState, useConvertSize} from "@/hooks/article";
 import hljs from 'highlight.js'
 import {showImagePreview} from "vant";
+import {MdPreview} from "md-editor-v3";
 
 const props = defineProps({
   articleList: Array

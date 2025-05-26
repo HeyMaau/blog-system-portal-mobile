@@ -33,6 +33,7 @@ import {
     Lazyload
 } from 'vant';
 import 'vant/lib/index.css';
+import 'md-editor-v3/lib/preview.css'
 
 import '@/assets/css/global.css'
 

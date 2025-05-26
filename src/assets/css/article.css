@@ -42,3 +42,7 @@
 :deep(td) {
     padding: 0.6em;
 }
+
+:deep(.md-editor-preview-wrapper) {
+    padding: 0;
+}
