@@ -42,9 +42,11 @@ getFullArticleApi(route.params.id).then(({data: response}) => {
   authorSign.value = response.data.user.sign
   nextTick(() => {
     document.title = `${article.value.title} - 卧卷`
-    useConvertSize(document.getElementById('articleContent'))
-    initPicViewer()
-    hljs.highlightAll()
+    if (article.value.type === '0') {
+      useConvertSize(document.getElementById('articleContent'))
+      initPicViewer()
+      hljs.highlightAll()
+    }
   })
 })
 const updateTime = computed(() => {

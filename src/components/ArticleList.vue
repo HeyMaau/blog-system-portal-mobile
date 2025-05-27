@@ -57,11 +57,13 @@ function showFullArticle(articleID) {
   getFullArticleApi(articleID).then(({data: response}) => {
     Reflect.set(fullArticleContent, articleID, response.data.content)
     collapseState.value[articleID] = false
-    nextTick(() => {
-      useConvertSize(document.getElementById(`fullArticle_${articleID}`))
-      initPicViewer(`fullArticle_${articleID}`)
-      hljs.highlightAll()
-    })
+    if (response.data.type === "0") {
+      nextTick(() => {
+        useConvertSize(document.getElementById(`fullArticle_${articleID}`))
+        initPicViewer(`fullArticle_${articleID}`)
+        hljs.highlightAll()
+      })
+    }
   })
 }
 
