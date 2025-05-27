@@ -30,14 +30,15 @@ export default defineConfig(({mode}) => {
                     input: {
                         main: resolve(__dirname, 'index-prod.html')
                     },
-                    externals: ['axios', 'vue', 'vue-router', 'vant', 'highlight.js'],
+                    externals: ['axios', 'vue', 'vue-router', 'vant', 'highlight.js', 'md-editor-v3'],
                     plugins: [
                         externalGlobals({
                             'axios': 'axios',
                             'vue': 'Vue',
                             'vue-router': 'VueRouter',
                             'vant': 'vant',
-                            'highlight.js': 'hljs'
+                            'highlight.js': 'hljs',
+                            'md-editor-v3': 'MdEditorV3'
                         })
                     ]
                 },
