@@ -5,7 +5,7 @@ import router from "@/router";
 
 const request = axios.create({
     baseURL: API_PORTAL_PATH + '/user/admin',
-    timeout: 5000
+    timeout: 15000
 })
 
 request.interceptors.response.use(res => {

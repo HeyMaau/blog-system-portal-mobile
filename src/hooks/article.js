@@ -9,7 +9,7 @@ import {convertPX2VW} from "@/utils/size-util";
 
 const request = axios.create({
     baseURL: API_PORTAL_PATH,
-    timeout: 5000
+    timeout: 15000
 })
 
 request.interceptors.response.use(res => {
