@@ -11,7 +11,7 @@
     </div>
     <div class="rich-content-container">
       <div class="short-article-container" v-if="collapseState[item.id]">
-        <van-image :src="item.cover" width="100%" height="150px" fit="cover" lazy-load/>
+        <img :src="item.cover" width="100%" loading="lazy" fetchpriority="high" class="object-fit-cover"/>
         <div class="article-content-summary-container">
           <span class="van-multi-ellipsis--l2">{{ item.content }}</span>
           <button class="button-full-article" @click="showFullArticle(item.id)">阅读全文
@@ -92,6 +92,7 @@ function initPicViewer(domID) {
 </script>
 
 <style src="@/assets/css/article.css" scoped/>
+<style src="@/assets/css/image.css" scoped/>
 <style scoped>
 
 .container {
